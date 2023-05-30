@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{usr/common/layout.html}">
-
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" lang="ko" data-theme="light">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Title</title>
+
+    <!-- CSS only -->
+    <link th:href="@{/css/layout1.css}" rel="stylesheet">
 
     <!-- 제이쿼리 불러오기 -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
@@ -20,59 +19,30 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- 아이콘 목록 : https://fontawesome.com/search?o=r&m=free -->
 
-    <!-- 공통 JS 불러오기 -->
-    <script src=""></script>
-    <!-- 공통 CSS 불러오기 -->
-    <link rel="stylesheet" href="/resource/common/common.css">
+
+    <!-- JS, Popper.js, and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
+
+    <th:block layout:fragment="script"></th:block>
+    <th:block layout:fragment="css"></th:block>
 
 </head>
-
 <body>
+
 <!-- 데이지 UI 불러오기 -->
 <link href="https://cdn.jsdelivr.net/npm/daisyui@2.51.5/dist/full.css" rel="stylesheet" type="text/css"/>
 <!-- 테일윈드 불러오기 -->
 <script src="https://cdn.tailwindcss.com"></script>
 
-<div class="min-h-screen flex flex-col pb-10">
-    <header layout:fragment="header"></header>
+<div th:replace="usr/fragment/header::header"></div>
 
-    <main layout:fragment="main"></main>
+<div layout:fragment="content" ></div>
 
-    <footer layout:fragment="footer"></footer>
-</div>
-
-<script th:inline="javascript">
-    if (params.msg) {
-        toastNotice(params.msg[0]);
-    }
-
-    if (params.errorMsg) {
-        toastWarning(params.errorMsg[0]);
-    }
-
-    // history.back 에 의해서 돌아온 경우에 실행됨
-    // 평소에도 실행됨
-    $(window).bind("pageshow", function (event) {
-        const localStorageKeyAboutHistoryBackErrorMsg = "historyBackErrorMsg___" + location.href;
-
-        if (localStorage.getItem(localStorageKeyAboutHistoryBackErrorMsg)) {
-            toastWarning(localStorage.getItem(localStorageKeyAboutHistoryBackErrorMsg));
-            localStorage.removeItem(localStorageKeyAboutHistoryBackErrorMsg);
-        } else {
-            const localStorageKeyAboutHistoryBackErrorMsg = "historyBackErrorMsg___null";
-
-            if (localStorage.getItem(localStorageKeyAboutHistoryBackErrorMsg)) {
-                toastWarning(localStorage.getItem(localStorageKeyAboutHistoryBackErrorMsg));
-                localStorage.removeItem(localStorageKeyAboutHistoryBackErrorMsg);
-            }
-        }
-    });
-</script>
-
-<script src="https://cdn.jsdelivr.net/npm/jdenticon@3.2.0/dist/jdenticon.min.js" async
-        integrity="sha384-yBhgDqxM50qJV5JPdayci8wCfooqvhFYbIKhv0hTtLvfeeyJMJCscRfFNKIxt43M"
-        crossorigin="anonymous">
-</script>
+<div th:replace="usr/fragment/footer::footer"></div>
 
 </body>
 </html>
