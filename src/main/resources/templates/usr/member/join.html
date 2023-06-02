@@ -9,6 +9,14 @@
 <main layout:fragment="content" class="flex-col flex items-center justify-center">
     <script>
         function JoinForm__submit(form) {
+            form.username.value = form.username.value.trim();
+
+            if (form.username.value.length === 0) {
+                alert('이름을 입력해주세요.');
+                form.username.focus();
+                return;
+            }
+
             form.id.value = form.id.value.trim();
 
             if (form.id.value.length === 0) {
