@@ -49,9 +49,7 @@ public class MemberService {
                 .providerType(null)
                 .build();
 
-        memberRepository.save(member);
-
-        return RsData.of("S-1", "회원가입이 완료되었습니다.", member);
+        return RsData.of("S-1", "회원가입이 완료되었습니다.", memberRepository.save(member));
     }
 
     private Optional<Member> findByUsername(String username) {
