@@ -52,6 +52,22 @@
                 return;
             }
 
+            form.nickname.value = form.nickname.value.trim();
+
+            if (form.nickname.value.length === 0) {
+                alert('닉네임을 입력해주세요.');
+                form.nickname.focus();
+                return;
+            }
+
+            form.email.value = form.email.value.trim();
+
+            if (form.email.value.length === 0) {
+                alert('이메일을 입력해주세요.');
+                form.email.focus();
+                return;
+            }
+
             if (form.interest1.value === '') {
                 alert('관심사를 선택해주세요.');
                 form.interest1.focus();
@@ -62,7 +78,6 @@
                 return;
             }
 
-            alert(form.personalInfoAgreement.checked);
             if (!form.personalInfoAgreement.checked) {
                 alert('개인정보 수집 및 활용 약관에 동의해주세요.')
                 form.personalInfoAgreement.focus();
