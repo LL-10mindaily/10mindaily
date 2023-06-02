@@ -66,6 +66,10 @@
                 alert('이메일을 입력해주세요.');
                 form.email.focus();
                 return;
+            } else if (!validateEmail(form.email.value)) {
+                alert('올바른 형식의 이메일 주소를 입력해주세요.');
+                form.email.focus();
+                return;
             }
 
             if (form.interest1.value === '') {
@@ -82,6 +86,12 @@
                 alert('개인정보 수집 및 활용 약관에 동의해주세요.')
                 form.personalInfoAgreement.focus();
                 return;
+            }
+
+            function validateEmail(email) {
+                var emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+                return emailPattern.test(email);
             }
 
             form.submit();

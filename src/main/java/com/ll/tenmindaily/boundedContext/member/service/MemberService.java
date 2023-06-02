@@ -20,6 +20,7 @@ public class MemberService {
 
     private final PasswordEncoder passwordEncoder;
 
+    @Transactional
     public RsData<Member> join(MemberController.JoinForm joinForm) {
         String username = joinForm.getUsername();
         String id = joinForm.getId();

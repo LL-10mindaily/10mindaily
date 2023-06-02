@@ -3,6 +3,7 @@ package com.ll.tenmindaily.boundedContext.member.entity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.Email;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 import org.springframework.data.annotation.CreatedDate;
@@ -22,6 +23,7 @@ public class Member {
     private String userId;
     private String username;
     private String password;
+    @Email
     private String email;
     private String providerType;
     private Boolean emailVerified;
