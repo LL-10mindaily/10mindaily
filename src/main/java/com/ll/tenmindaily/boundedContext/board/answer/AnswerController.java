@@ -4,8 +4,8 @@ package com.ll.tenmindaily.boundedContext.board.answer;
 
 import com.ll.tenmindaily.boundedContext.board.question.Question;
 import com.ll.tenmindaily.boundedContext.board.question.QuestionService;
-import com.ll.tenmindaily.boundedContext.board.user.SiteUser;
-import com.ll.tenmindaily.boundedContext.board.user.UserService;
+import com.ll.tenmindaily.boundedContext.member.entity.Member;
+import com.ll.tenmindaily.boundedContext.member.service.MemberService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -27,19 +27,19 @@ import java.security.Principal;
 public class AnswerController {
     private final QuestionService questionService;
     private final AnswerService answerService;
-    private final UserService userService;
+    private final MemberService memberService;
 
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/create/{id}")
     public String createAnswer(Model model, @PathVariable("id") Integer id,
                                @Valid AnswerForm answerForm, BindingResult bindingResult, Principal principal){
         Question question = this.questionService.getQuestion(id);
-        SiteUser siteUser = this.userService.getUser(principal.getName());// ------------- 유저 객체 구현후 추후 수정 --------------------
+        Member member = this.memberService.getUser(principal.getName());// ------------- 유저 객체 구현후 추후 수정 --------------------
         if(bindingResult.hasErrors()){
             model.addAttribute("question", question); //question_detail 템플릿은 Question 객체가 필요
             return "usr/board/question_detail";
         }
-        Answer answer = this.answerService.craete(question, answerForm.getContent(), siteUser); //------------- 유저 객체 구현후 추후 수정 --------------------
+        Answer answer = this.answerService.craete(question, answerForm.getContent(), member); //------------- 유저 객체 구현후 추후 수정 --------------------
         return String.format("redirect:/question/detail/%s#answer_%s", answer.getQuestion().getId(), answer.getId());
     }
 
@@ -85,8 +85,8 @@ public class AnswerController {
     @GetMapping("/vote/{id}")
     public String answerVote(Principal principal, @PathVariable("id") Integer id){
         Answer answer = this.answerService.getAnswer(id);
-        SiteUser siteUser = this.userService.getUser(principal.getName());
-        this.answerService.vote(answer, siteUser);//------ 유저 객체 구현후 추후 수정 ----------
+        Member member = this.memberService.getUser(principal.getName());
+        this.answerService.vote(answer, member);//------ 유저 객체 구현후 추후 수정 ----------
         return String.format("redirect:/question/detail/%s#answer_%s", answer.getQuestion().getId(), answer.getId());
     }
 }

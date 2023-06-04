@@ -4,7 +4,7 @@ package com.ll.tenmindaily.boundedContext.board.answer;
 
 import com.ll.tenmindaily.base.exception.DataNotFoundException;
 import com.ll.tenmindaily.boundedContext.board.question.Question;
-import com.ll.tenmindaily.boundedContext.board.user.SiteUser;
+import com.ll.tenmindaily.boundedContext.member.entity.Member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +17,7 @@ public class AnswerService {
 
     private final AnswerRepository answerRepository;
 
-    public Answer craete(Question question, String content, SiteUser author){//--------추후 수정---------
+    public Answer craete(Question question, String content, Member author){//--------추후 수정---------
         Answer answer = new Answer();
         answer.setContent(content);
         answer.setCreateDate(LocalDateTime.now());
@@ -45,8 +45,8 @@ public class AnswerService {
     }
 
     //답변 추천에 사용자 정보 저장 ------------- 추후 수정 --------------------
-    public void vote(Answer answer, SiteUser siteUser){
-        answer.getVoter().add(siteUser);
+    public void vote(Answer answer, Member member){
+        answer.getVoter().add(member);
         this.answerRepository.save(answer);
     }
 }

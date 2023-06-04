@@ -3,7 +3,9 @@ package com.ll.tenmindaily.boundedContext.board.question;
 
 
 import com.ll.tenmindaily.boundedContext.board.answer.Answer;
-import com.ll.tenmindaily.boundedContext.board.user.SiteUser;
+import com.ll.tenmindaily.boundedContext.board.category.Category;
+import com.ll.tenmindaily.boundedContext.board.comment.Comment;
+import com.ll.tenmindaily.boundedContext.member.entity.Member;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -34,11 +36,19 @@ public class Question {
     private List<Answer> answerList;
 
     @ManyToOne
-    private SiteUser author; //---- 유저 객체 구현후 추후 수정 --------------------
+    private Member author; //---- 유저 객체 구현후 추후 수정 --------------------
 
     @ManyToMany
-    Set<SiteUser> voter; //---- 유저 객체 구현후 추후 수정 --------------------
+    Set<Member> voter; //---- 유저 객체 구현후 추후 수정 --------------------
 
     @Column(columnDefinition = "integer default 0", nullable = false)
     private int view;
+
+    @OneToMany(mappedBy = "question")
+    private List<Comment> commentList;
+    // Comment 모델에서 Question을 연결하기 위한 속성명이 question이므로
+    // mappedBy의 값으로 "question"이 전달
+
+    @ManyToOne
+    Category category;
 }

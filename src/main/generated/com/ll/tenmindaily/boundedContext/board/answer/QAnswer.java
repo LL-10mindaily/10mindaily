@@ -22,7 +22,9 @@ public class QAnswer extends EntityPathBase<Answer> {
 
     public static final QAnswer answer = new QAnswer("answer");
 
-    public final com.ll.tenmindaily.boundedContext.board.user.QSiteUser author;
+    public final com.ll.tenmindaily.boundedContext.member.entity.QMember author;
+
+    public final ListPath<com.ll.tenmindaily.boundedContext.board.comment.Comment, com.ll.tenmindaily.boundedContext.board.comment.QComment> commentList = this.<com.ll.tenmindaily.boundedContext.board.comment.Comment, com.ll.tenmindaily.boundedContext.board.comment.QComment>createList("commentList", com.ll.tenmindaily.boundedContext.board.comment.Comment.class, com.ll.tenmindaily.boundedContext.board.comment.QComment.class, PathInits.DIRECT2);
 
     public final StringPath content = createString("content");
 
@@ -34,7 +36,7 @@ public class QAnswer extends EntityPathBase<Answer> {
 
     public final com.ll.tenmindaily.boundedContext.board.question.QQuestion question;
 
-    public final SetPath<com.ll.tenmindaily.boundedContext.board.user.SiteUser, com.ll.tenmindaily.boundedContext.board.user.QSiteUser> voter = this.<com.ll.tenmindaily.boundedContext.board.user.SiteUser, com.ll.tenmindaily.boundedContext.board.user.QSiteUser>createSet("voter", com.ll.tenmindaily.boundedContext.board.user.SiteUser.class, com.ll.tenmindaily.boundedContext.board.user.QSiteUser.class, PathInits.DIRECT2);
+    public final SetPath<com.ll.tenmindaily.boundedContext.member.entity.Member, com.ll.tenmindaily.boundedContext.member.entity.QMember> voter = this.<com.ll.tenmindaily.boundedContext.member.entity.Member, com.ll.tenmindaily.boundedContext.member.entity.QMember>createSet("voter", com.ll.tenmindaily.boundedContext.member.entity.Member.class, com.ll.tenmindaily.boundedContext.member.entity.QMember.class, PathInits.DIRECT2);
 
     public QAnswer(String variable) {
         this(Answer.class, forVariable(variable), INITS);
@@ -54,7 +56,7 @@ public class QAnswer extends EntityPathBase<Answer> {
 
     public QAnswer(Class<? extends Answer> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.author = inits.isInitialized("author") ? new com.ll.tenmindaily.boundedContext.board.user.QSiteUser(forProperty("author")) : null;
+        this.author = inits.isInitialized("author") ? new com.ll.tenmindaily.boundedContext.member.entity.QMember(forProperty("author")) : null;
         this.question = inits.isInitialized("question") ? new com.ll.tenmindaily.boundedContext.board.question.QQuestion(forProperty("question"), inits.get("question")) : null;
     }
 

@@ -19,6 +19,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- 아이콘 목록 : https://fontawesome.com/search?o=r&m=free -->
 
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" type="text/css" th:href="@{/bootstrap.min.css}">
 
     <!-- JS, Popper.js, and jQuery -->
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
@@ -43,6 +45,8 @@
 <div layout:fragment="content" ></div>
 
 <div th:replace="usr/fragment/footer::footer"></div>
+<!-- Bootstrap JS -->
+<script th:src="@{/bootstrap.min.js}"></script>
 
 </body>
 </html>

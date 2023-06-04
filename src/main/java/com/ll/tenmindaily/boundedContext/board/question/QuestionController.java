@@ -3,8 +3,10 @@ package com.ll.tenmindaily.boundedContext.board.question;
 
 
 import com.ll.tenmindaily.boundedContext.board.answer.AnswerForm;
-import com.ll.tenmindaily.boundedContext.board.user.SiteUser;
-import com.ll.tenmindaily.boundedContext.board.user.UserService;
+import com.ll.tenmindaily.boundedContext.board.category.Category;
+import com.ll.tenmindaily.boundedContext.board.category.CategoryService;
+import com.ll.tenmindaily.boundedContext.member.entity.Member;
+import com.ll.tenmindaily.boundedContext.member.service.MemberService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -24,10 +26,11 @@ import java.security.Principal;
 public class QuestionController {
 
     private final QuestionService questionService;
-    private final UserService userService; //---- 유저 객체 구현후 추후 수정 --------------------
+    private final MemberService memberService;
+    private final CategoryService categoryService;
 
     @GetMapping("/list")
-    public String list(Model model, @RequestParam(value = "page", defaultValue = "0") int page,
+    public String list(Model model, @RequestParam(value = "page", defaultValue = "0") int page, ///@PathVariable("type") String type,
                        @RequestParam(value = "kw", defaultValue = "") String kw){
 
         Page<Question> paging = this.questionService.getList(page, kw);
@@ -35,6 +38,16 @@ public class QuestionController {
         model.addAttribute("kw", kw);
         return "usr/board/question_list";
     }
+
+    /*@GetMapping("/list")
+    public String list(Model model, @RequestParam(value = "page", defaultValue = "0") int page,
+                       @RequestParam(value = "kw", defaultValue = "") String kw){
+
+        Page<Question> paging = this.questionService.getList(page, kw);
+        model.addAttribute("paging", paging);
+        model.addAttribute("kw", kw);
+        return "question_list";
+    }*/
 
     @GetMapping(value = "/detail/{id}")
     public String detail(Model model, @PathVariable("id") Integer id, AnswerForm answerForm) {
@@ -47,8 +60,9 @@ public class QuestionController {
     //매개변수로 바인딩한 객체는 Model 객체로 전달하지 않아도 템플릿에서 사용이 가능=QuestionForm
     @PreAuthorize("isAuthenticated()") //로그인이 필요한 메서드
     @GetMapping("/create")
-    public String questionCreate(QuestionForm questionForm){
-        return "question_form";
+    public String questionCreate(Model model, QuestionForm questionForm){
+        model.addAttribute("categoryList", categoryService.getinvestmentType());
+        return "usr/board/question_form";
     }
 
     //QuestionForm 이 만들어 지면서 유효성 검증을 함. subject, content 는 questionForm 에 들어있음
@@ -62,20 +76,23 @@ public class QuestionController {
         if(bindingResult.hasErrors()){
             return "usr/board/question_form";
         }
-        SiteUser siteUser = this.userService.getUser(principal.getName()); //---- 유저 객체 구현후 추후 수정 --------------------
-        this.questionService.create(questionForm.getSubject(), questionForm.getContent(), siteUser);//--- 유저 객체 구현후 추후 수정 --------------------
+        Member member = this.memberService.getUser(principal.getName()); //---- 유저 객체 구현후 추후 수정 --------------------
+        Category category = this.categoryService.getCategory(questionForm.getCategory());
+        this.questionService.create(questionForm.getSubject(), questionForm.getContent(), member, category);//--- 유저 객체 구현후 추후 수정 --------------------
         return "redirect:/question/list";
     }
 
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/modify/{id}")
-    public String questionModify(QuestionForm questionForm, @PathVariable("id") Integer id, Principal principal){
+    public String questionModify(QuestionForm questionForm, Model model, @PathVariable("id") Integer id, Principal principal){
         Question question = this.questionService.getQuestion(id);
         if(!question.getAuthor().getUsername().equals(principal.getName())){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
         } //---- 유저 객체 구현후 추후 수정 --------------------
         question.setSubject(question.getSubject());
         question.setContent(question.getContent());
+        questionForm.setCategory(question.getCategory().getInvestment());
+        model.addAttribute("categoryList", categoryService.getinvestmentType());
         return "usr/board/question_form";
     }
 
@@ -90,7 +107,8 @@ public class QuestionController {
         if(!question.getAuthor().getUsername().equals(principal.getName())){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
         }//---- 유저 객체 구현후 추후 수정 --------------------
-        this.questionService.modify(question, questionForm.getSubject(), questionForm.getContent());
+        Category category = this.categoryService.getCategory(questionForm.getCategory());
+        this.questionService.modify(question, questionForm.getSubject(), questionForm.getContent(), category);
         return String.format("redirect:/question/detail/%S", id);
     }
 
@@ -109,8 +127,8 @@ public class QuestionController {
     @GetMapping("/vote/{id}")
     public String questionVote(Principal principal, @PathVariable("id") Integer id){
         Question question = this.questionService.getQuestion(id);
-        SiteUser siteUser = this.userService.getUser(principal.getName());//---- 유저 객체 구현후 추후 수정 -------
-        this.questionService.vote(question, siteUser);//------ 유저 객체 구현후 추후 수정 -------
+        Member member = this.memberService.getUser(principal.getName());//---- 유저 객체 구현후 추후 수정 -------
+        this.questionService.vote(question, member);//------ 유저 객체 구현후 추후 수정 -------
         return String.format("redirect:/question/detail/%s", id);
     }
 
