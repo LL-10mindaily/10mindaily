@@ -13,7 +13,7 @@ public class CategoryService {
     private CategoryRepository categoryRepository;
 
 
-    public List<String> getinvestmentType(){
+    public List<String> getinvestmentType(){ //카테고리 이름들 String 으로 가져오기
         List<String> catgoryList =new ArrayList<>();
         List<Category> fCategory =  this.categoryRepository.findAll();
         for(Category c : fCategory){
@@ -22,10 +22,11 @@ public class CategoryService {
         return catgoryList;
     }
 
-    public Category getCategory(String category) {
+    public Category getCategory(String category) { //특정 카테고리 가져오기
+        return this.categoryRepository.findByInvestment(category);
+    }
 
-        Category cate= this.categoryRepository.findByInvestment(category);
-
-        return  cate;
+    public List<Category> getAllCategory(){
+        return categoryRepository.findAll();
     }
 }

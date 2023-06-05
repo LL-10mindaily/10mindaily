@@ -39,15 +39,14 @@ public class QuestionController {
         return "usr/board/question_list";
     }
 
-    /*@GetMapping("/{type}/list")
+    @GetMapping("/{type}/list")
     public String list(Model model,  @PathVariable("type") String type, @RequestParam(value = "page", defaultValue = "0") int page,
                        @RequestParam(value = "kw", defaultValue = "") String kw){
-
-        Page<Question> paging = this.questionService.getList(page, kw);
+        Page<Question> paging = this.questionService.getList(page, kw, type);
         model.addAttribute("paging", paging);
         model.addAttribute("kw", kw);
-        return "question_list";
-    }*/
+        return "usr/board/question_list";
+    }
 
     @GetMapping(value = "/detail/{id}")
     public String detail(Model model, @PathVariable("id") Integer id, AnswerForm answerForm) {

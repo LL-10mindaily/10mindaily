@@ -8,10 +8,7 @@ import com.ll.tenmindaily.boundedContext.board.category.Category;
 import com.ll.tenmindaily.boundedContext.member.entity.Member;
 import jakarta.persistence.criteria.*;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.*;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +16,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -48,6 +46,17 @@ public class QuestionService {
         Specification<Question> spec = search(kw);
         return this.questionRepository.findAll(spec, pageable);
         //return this.questionRepository.findAllByKeyword(kw, pageable);
+    }
+
+    public Page<Question> getList(int page, String kw, String type) {
+        Page<Question> questionPage = getList(page, kw);
+        if (!type.isEmpty()) {
+            questionPage = new PageImpl<>(questionPage
+                    .stream()
+                    .filter(q -> q.getCategory().getInvestment().equals(type))
+                    .collect(Collectors.toList()));
+        }
+        return questionPage;
     }
 
     public Question getQuestion(Integer id){

@@ -6,7 +6,8 @@
         <div class="w-1/2">
             <a th:href="@{/question/create}" class="btn btn-active btn-primary">게시물 작성</a>
         </div>
-
+        <a th:if="${type != null}" th:text ="${type}"></a>
+        <a th:unless="${type != null}">전체 게시판</a>
         <div class="w-1/2">
             <div class="flex">
                 <input type="text" id="search_kw" placeholder="Type here" class="input input-bordered input-primary w-full max-w-xs" th:value="${kw}">
