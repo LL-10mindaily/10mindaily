@@ -58,7 +58,7 @@ public class MemberService {
     }
 
     public Member getUser(String username){
-        Optional<Member> member = this.memberRepository.findByUsername(username);
+        Optional<Member> member = this.memberRepository.findByUserId(username);
         if(member.isPresent()){
             return member.get();
         }else {

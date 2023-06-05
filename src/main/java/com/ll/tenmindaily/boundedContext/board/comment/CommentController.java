@@ -62,7 +62,7 @@ public class CommentController {
         Optional<Comment> comment = this.commentService.getComment(id);
         if (comment.isPresent()) {
             Comment c = comment.get();
-            if (!c.getAuthor().getUsername().equals(principal.getName())) {
+            if (!c.getAuthor().getUserId().equals(principal.getName())) {
                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
             }
             commentForm.setContent(c.getContent());
@@ -80,7 +80,7 @@ public class CommentController {
         Optional<Comment> comment = this.commentService.getComment(id);
         if (comment.isPresent()) {
             Comment c = comment.get();
-            if (!c.getAuthor().getUsername().equals(principal.getName())) {
+            if (!c.getAuthor().getUserId().equals(principal.getName())) {
                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
             }
             c = this.commentService.modify(c, commentForm.getContent());
@@ -97,7 +97,7 @@ public class CommentController {
         Optional<Comment> comment = this.commentService.getComment(id);
         if (comment.isPresent()) {
             Comment c = comment.get();
-            if (!c.getAuthor().getUsername().equals(principal.getName())) {
+            if (!c.getAuthor().getUserId().equals(principal.getName())) {
                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "삭제권한이 없습니다.");
             }
             this.commentService.delete(c);

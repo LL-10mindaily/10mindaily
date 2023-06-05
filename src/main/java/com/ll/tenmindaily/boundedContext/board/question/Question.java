@@ -44,7 +44,7 @@ public class Question {
     @Column(columnDefinition = "integer default 0", nullable = false)
     private int view;
 
-    @OneToMany(mappedBy = "question")
+    @OneToMany(mappedBy = "question", cascade = CascadeType.REMOVE)
     private List<Comment> commentList;
     // Comment 모델에서 Question을 연결하기 위한 속성명이 question이므로
     // mappedBy의 값으로 "question"이 전달

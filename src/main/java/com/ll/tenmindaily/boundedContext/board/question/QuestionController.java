@@ -39,8 +39,8 @@ public class QuestionController {
         return "usr/board/question_list";
     }
 
-    /*@GetMapping("/list")
-    public String list(Model model, @RequestParam(value = "page", defaultValue = "0") int page,
+    /*@GetMapping("/{type}/list")
+    public String list(Model model,  @PathVariable("type") String type, @RequestParam(value = "page", defaultValue = "0") int page,
                        @RequestParam(value = "kw", defaultValue = "") String kw){
 
         Page<Question> paging = this.questionService.getList(page, kw);
@@ -86,11 +86,11 @@ public class QuestionController {
     @GetMapping("/modify/{id}")
     public String questionModify(QuestionForm questionForm, Model model, @PathVariable("id") Integer id, Principal principal){
         Question question = this.questionService.getQuestion(id);
-        if(!question.getAuthor().getUsername().equals(principal.getName())){
+        if(!question.getAuthor().getUserId().equals(principal.getName())){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
         } //---- 유저 객체 구현후 추후 수정 --------------------
-        question.setSubject(question.getSubject());
-        question.setContent(question.getContent());
+        questionForm.setSubject(question.getSubject());
+        questionForm.setContent(question.getContent());
         questionForm.setCategory(question.getCategory().getInvestment());
         model.addAttribute("categoryList", categoryService.getinvestmentType());
         return "usr/board/question_form";
@@ -101,12 +101,16 @@ public class QuestionController {
     public String questionModify(@Valid QuestionForm questionForm, BindingResult bindingResult,
                                  Principal principal, @PathVariable("id") Integer id){
         if(bindingResult.hasErrors()){
+
             return "usr/board/question_form";
         }
+
         Question question = this.questionService.getQuestion(id);
-        if(!question.getAuthor().getUsername().equals(principal.getName())){
+
+        if(!question.getAuthor().getUserId().equals(principal.getName())){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
-        }//---- 유저 객체 구현후 추후 수정 --------------------
+        }
+
         Category category = this.categoryService.getCategory(questionForm.getCategory());
         this.questionService.modify(question, questionForm.getSubject(), questionForm.getContent(), category);
         return String.format("redirect:/question/detail/%S", id);
@@ -116,7 +120,7 @@ public class QuestionController {
     @GetMapping("/delete/{id}")
     public String questionDelete(Principal principal, @PathVariable("id") Integer id){
         Question question = this.questionService.getQuestion(id);
-        if(!question.getAuthor().getUsername().equals(principal.getName())){
+        if(!question.getAuthor().getUserId().equals(principal.getName())){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "삭제 권한이 없습니다.");
         }//---- 유저 객체 구현후 추후 수정 --------------------
         this.questionService.delete(question);

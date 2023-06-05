@@ -17,16 +17,16 @@ public class AnswerService {
 
     private final AnswerRepository answerRepository;
 
-    public Answer craete(Question question, String content, Member author){//--------추후 수정---------
+    public Answer craete(Question question, String content, Member author){
         Answer answer = new Answer();
         answer.setContent(content);
         answer.setCreateDate(LocalDateTime.now());
         answer.setQuestion(question);
-        answer.setAuthor(author); //------------- 추후 수정 --------------------
+        answer.setAuthor(author);
         this.answerRepository.save(answer);
         return answer;
     }
-    public Answer getAnswer(Integer id){ //답변 조회
+    public Answer getAnswer(Integer id){
         Optional<Answer> answer = this.answerRepository.findById(id);
         if(answer.isPresent()){
             return answer.get();
@@ -35,7 +35,7 @@ public class AnswerService {
         }
     }
 
-    public void modify(Answer answer, String content){ //답변 수정
+    public void modify(Answer answer, String content){
         answer.setContent(content);
         answer.setModifyDate(LocalDateTime.now());
         this.answerRepository.save(answer);
@@ -44,7 +44,6 @@ public class AnswerService {
         this.answerRepository.delete(answer);
     }
 
-    //답변 추천에 사용자 정보 저장 ------------- 추후 수정 --------------------
     public void vote(Answer answer, Member member){
         answer.getVoter().add(member);
         this.answerRepository.save(answer);

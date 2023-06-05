@@ -48,7 +48,7 @@ public class AnswerController {
     public String answerModify(AnswerForm answerForm, @PathVariable("id") Integer id, Principal principal){
         //답변 수정시 기존의 내용이 필요
         Answer answer = this.answerService.getAnswer(id);
-        if(!answer.getAuthor().getUsername().equals(principal.getName())){
+        if(!answer.getAuthor().getUserId().equals(principal.getName())){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
         }//-------현제 사용자랑 답변 저자랑 비교하는 메소드------유저 객체 구현후 추후 수정 --------------------
         answerForm.setContent(answer.getContent());
@@ -63,7 +63,7 @@ public class AnswerController {
             return "usr/board/answer_form";
         }
         Answer answer = this.answerService.getAnswer(id);
-        if(!answer.getAuthor().getUsername().equals(principal.getName())){
+        if(!answer.getAuthor().getUserId().equals(principal.getName())){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
         }//-------현제 사용자랑 답변 저자랑 비교하는 메소드------ 유저 객체 구현후 추후 수정 --------------------
         this.answerService.modify(answer, answerForm.getContent());
@@ -74,7 +74,7 @@ public class AnswerController {
     @GetMapping("/delete/{id}")
     public String answerDelete(Principal principal, @PathVariable("id") Integer id){
         Answer answer = this.answerService.getAnswer(id);
-        if(!answer.getAuthor().getUsername().equals(principal.getName())){
+        if(!answer.getAuthor().getUserId().equals(principal.getName())){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "삭제 권한이 없습니다.");
         }//-------현제 사용자랑 답변 저자랑 비교하는 메소드------ 유저 객체 구현후 추후 수정 --------------------
         this.answerService.delete(answer);

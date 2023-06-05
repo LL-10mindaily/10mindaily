@@ -18,6 +18,7 @@ public class Rq {
 
     public Rq(MemberService memberService) {
         this.memberService = memberService;
+
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         if (authentication.getPrincipal() instanceof User) {
