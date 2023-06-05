@@ -1,4 +1,4 @@
 package com.ll.tenmindaily.boundedContext.board.controller;
 
-public class BoardController {// 잘목추가함 삭제 예정
+public class BoardController {// 잘못추가함 삭제 예정
 }
