@@ -109,23 +109,6 @@ public class MemberService {
         return join(joinForm);
     }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-    public Member getUser(String username) {
-        Optional<Member> member = this.memberRepository.findByUserId(username);
-        if (member.isPresent()) {
-            return member.get();
-        } else {
-=======
-    public Member getUser(String username){
-        Optional<Member> member = this.memberRepository.findByUserId(username);
-        if(member.isPresent()){
-            return member.get();
-        }else {
->>>>>>> 3630690 (Nagiltae (#9))
-            throw new DataNotFoundException("siteuser not found");
-        }
-=======
     @Transactional
     public RsData<Member> modify(Member actor, MemberController.JoinForm joinForm) {
         actor.setUsername(joinForm.getUsername());
@@ -133,7 +116,6 @@ public class MemberService {
         actor.setEmail(joinForm.getEmail());
 
         return RsData.of("S-1","성공적으로 수정되었습니다.", memberRepository.save(actor));
->>>>>>> 15b2d65 (Shinjaean: 마이페이지 수정 관련 UI 및 기능 구현 (#11))
     }
 
 }

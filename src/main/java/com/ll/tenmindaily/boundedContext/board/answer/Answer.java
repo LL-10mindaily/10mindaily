@@ -1,10 +1,6 @@
 package com.ll.tenmindaily.boundedContext.board.answer;
 
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 3630690 (Nagiltae (#9))
 import com.ll.tenmindaily.boundedContext.board.comment.Comment;
 import com.ll.tenmindaily.boundedContext.board.question.Question;
 import com.ll.tenmindaily.boundedContext.member.entity.Member;

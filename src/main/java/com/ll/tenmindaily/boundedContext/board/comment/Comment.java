@@ -4,10 +4,6 @@ package com.ll.tenmindaily.boundedContext.board.comment;
 import com.ll.tenmindaily.boundedContext.board.answer.Answer;
 import com.ll.tenmindaily.boundedContext.board.question.Question;
 import com.ll.tenmindaily.boundedContext.member.entity.Member;
-<<<<<<< HEAD
-=======
-
->>>>>>> 3630690 (Nagiltae (#9))
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;

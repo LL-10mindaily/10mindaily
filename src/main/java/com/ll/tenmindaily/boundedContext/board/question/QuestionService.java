@@ -1,10 +1,6 @@
 package com.ll.tenmindaily.boundedContext.board.question;
 
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 3630690 (Nagiltae (#9))
 import com.ll.tenmindaily.base.exception.DataNotFoundException;
 import com.ll.tenmindaily.boundedContext.board.answer.Answer;
 import com.ll.tenmindaily.boundedContext.board.category.Category;
@@ -62,7 +58,6 @@ public class QuestionService {
         return questionPage;
     }
 
-<<<<<<< HEAD
     public Question getQuestion(Integer id) {
         Optional<Question> question = this.questionRepository.findById(id);
         if (question.isPresent()) {
@@ -71,27 +66,12 @@ public class QuestionService {
             this.questionRepository.save(question1);
             return question1;
         } else {
-=======
-    public Question getQuestion(Integer id){
-        Optional<Question> question = this.questionRepository.findById(id);
-        if(question.isPresent()){
-            Question question1 = question.get();
-            question1.setView(question1.getView()+1);
-            this.questionRepository.save(question1);
-            return question1;
-        }else{
->>>>>>> 3630690 (Nagiltae (#9))
             throw new DataNotFoundException("question not found");
         }
     }
 
-<<<<<<< HEAD
     public void create(String subject, String content, Member user, Category category) {
         Question q = new Question();
-=======
-    public void create(String subject, String content, Member user, Category category){
-        Question q= new Question();
->>>>>>> 3630690 (Nagiltae (#9))
         q.setSubject(subject);
         q.setContent(content);
         q.setCreateDate(LocalDateTime.now());
@@ -100,11 +80,7 @@ public class QuestionService {
         this.questionRepository.save(q);
     }
 
-<<<<<<< HEAD
     public void modify(Question question, String subject, String content, Category category) {
-=======
-    public void modify(Question question, String subject, String content, Category category){
->>>>>>> 3630690 (Nagiltae (#9))
         question.setSubject(subject);
         question.setContent(content);
         question.setModifyDate(LocalDateTime.now());
@@ -112,19 +88,11 @@ public class QuestionService {
         this.questionRepository.save(question);
     }
 
-<<<<<<< HEAD
     public void delete(Question question) {
         this.questionRepository.delete(question);
     }
 
     public void vote(Question question, Member member) { // ---- 유저 객체 구현후 추후 수정 --------------------
-=======
-    public void delete(Question question){
-        this.questionRepository.delete(question);
-    }
-
-    public void vote(Question question, Member member){ // ---- 유저 객체 구현후 추후 수정 --------------------
->>>>>>> 3630690 (Nagiltae (#9))
         question.getVoter().add(member);
         this.questionRepository.save(question);
     }
@@ -135,10 +103,7 @@ public class QuestionService {
     private Specification<Question> search(String kw) {
         return new Specification<>() {
             private static final long serialVersionUID = 1L;
-<<<<<<< HEAD
 
-=======
->>>>>>> 3630690 (Nagiltae (#9))
             @Override
             public Predicate toPredicate(Root<Question> q, CriteriaQuery<?> query, CriteriaBuilder cb) {
                 query.distinct(true);  // 중복을 제거
