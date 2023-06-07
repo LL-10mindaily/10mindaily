@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Stock Data</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#addStockButton').click(function () {
+                var symbol = $('#symbolInput').val();
+                if (symbol !== '') {
+                    $.ajax({
+                        type: 'POST',
+                        url: '/stocks/add/' + symbol,
+                        success: function (response) {
+                            alert('종목이 추가되었습니다.');
+                        },
+                        error: function (xhr, status, error) {
+                            alert('종목 추가에 실패했습니다. 에러: ' + error);
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+<h1>Stock Data</h1>
+<input type="text" id="symbolInput" placeholder="종목을 입력하세요">
+<button id="addStockButton">추가</button>
+</body>
+</html>

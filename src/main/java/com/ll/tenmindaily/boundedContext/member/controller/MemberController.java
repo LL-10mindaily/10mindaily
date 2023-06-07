@@ -41,13 +41,13 @@ public class MemberController {
         private final String interest2;
         private final String profileImage;
     }
-    
+
     @PreAuthorize("isAnonymous()")
     @GetMapping("/login")
     public String showLogin() {
         return "usr/member/login";
     }
-  
+
     @PreAuthorize("isAnonymous()")
     @GetMapping("/join")
     public String showJoin() {
