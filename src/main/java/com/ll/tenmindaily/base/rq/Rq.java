@@ -2,6 +2,10 @@ package com.ll.tenmindaily.base.rq;
 
 import com.ll.tenmindaily.boundedContext.member.entity.Member;
 import com.ll.tenmindaily.boundedContext.member.service.MemberService;
+<<<<<<< HEAD
+=======
+import jakarta.servlet.http.HttpServlet;
+>>>>>>> 50c3a61 (Nagiltae (#9))
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
@@ -41,7 +45,15 @@ public class Rq {
 
         // 데이터가 없는지 체크
         if (member == null) {
+<<<<<<< HEAD
             member = memberService.findByUsername(user.getUsername()).orElseThrow();
+=======
+<<<<<<< HEAD
+            member = memberService.findByUserId(user.getUsername()).orElseThrow();
+=======
+            member = memberService.findByUsername(user.getUsername()).orElseThrow();
+>>>>>>> 50c3a61 (Nagiltae (#9))
+>>>>>>> 546bfbb (Nagiltae (#9))
         }
 
         return member;
