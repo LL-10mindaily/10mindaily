@@ -1,13 +1,13 @@
 <html layout:decorate="~{usr/layout/layout.html}" lang="kr" xmlns:layout="http://www.thymeleaf.org">
-<div layout:fragment="content" class="flex-grow flex items-center justify-center">
-    <div class = "max-w-3xl mx-auto">
+<div layout:fragment="content" class="flex items-center justify-center">
+    <div class = "max-w-3xl w-full px-4">
     <!--검색창-->
     <div class="flex my-3">
-        <div class="w-1/2">
+        <div class="w-1/2 flex">
             <a th:href="@{/question/create}" class="btn btn-active btn-primary">게시물 작성</a>
+            <h3 th:if="${type != null}" th:text ="${type}"></h3>
+            <h3 th:unless="${type != null}">전체 게시판</h3>
         </div>
-        <a th:if="${type != null}" th:text ="${type}"></a>
-        <a th:unless="${type != null}">전체 게시판</a>
         <div class="w-1/2">
             <div class="flex">
                 <input type="text" id="search_kw" placeholder="Type here" class="input input-bordered input-primary w-full max-w-xs" th:value="${kw}">
@@ -18,7 +18,7 @@
     <!--검색창 끝-->
     <div class="overflow-x-auto">
     <table class="table">
-        <thead class="bg-black-800 text-white">
+        <thead class="bg-primary text-black">
         <tr class="text-center">
             <th>번호</th>
             <th style="width:50%">제목</th>
