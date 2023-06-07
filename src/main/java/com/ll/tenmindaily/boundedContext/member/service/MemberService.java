@@ -57,11 +57,19 @@ public class MemberService {
         return memberRepository.findByUsername(username);
     }
 
+<<<<<<< HEAD
     public Member getUser(String username) {
         Optional<Member> member = this.memberRepository.findByUserId(username);
         if (member.isPresent()) {
             return member.get();
         } else {
+=======
+    public Member getUser(String username){
+        Optional<Member> member = this.memberRepository.findByUserId(username);
+        if(member.isPresent()){
+            return member.get();
+        }else {
+>>>>>>> 3630690 (Nagiltae (#9))
             throw new DataNotFoundException("siteuser not found");
         }
     }

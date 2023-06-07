@@ -1,6 +1,10 @@
 package com.ll.tenmindaily.boundedContext.board.question;
 
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 3630690 (Nagiltae (#9))
 import com.ll.tenmindaily.boundedContext.board.answer.AnswerForm;
 import com.ll.tenmindaily.boundedContext.board.category.Category;
 import com.ll.tenmindaily.boundedContext.board.category.CategoryService;
@@ -30,7 +34,11 @@ public class QuestionController {
 
     @GetMapping("/list")
     public String list(Model model, @RequestParam(value = "page", defaultValue = "0") int page, ///@PathVariable("type") String type,
+<<<<<<< HEAD
                        @RequestParam(value = "kw", defaultValue = "") String kw) {
+=======
+                       @RequestParam(value = "kw", defaultValue = "") String kw){
+>>>>>>> 3630690 (Nagiltae (#9))
 
         Page<Question> paging = this.questionService.getList(page, kw);
         model.addAttribute("paging", paging);
@@ -39,8 +47,13 @@ public class QuestionController {
     }
 
     @GetMapping("/{type}/list")
+<<<<<<< HEAD
     public String list(Model model, @PathVariable("type") String type, @RequestParam(value = "page", defaultValue = "0") int page,
                        @RequestParam(value = "kw", defaultValue = "") String kw) {
+=======
+    public String list(Model model,  @PathVariable("type") String type, @RequestParam(value = "page", defaultValue = "0") int page,
+                       @RequestParam(value = "kw", defaultValue = "") String kw){
+>>>>>>> 3630690 (Nagiltae (#9))
         Page<Question> paging = this.questionService.getList(page, kw, type);
         model.addAttribute("paging", paging);
         model.addAttribute("kw", kw);
@@ -58,7 +71,11 @@ public class QuestionController {
     //매개변수로 바인딩한 객체는 Model 객체로 전달하지 않아도 템플릿에서 사용이 가능=QuestionForm
     @PreAuthorize("isAuthenticated()") //로그인이 필요한 메서드
     @GetMapping("/create")
+<<<<<<< HEAD
     public String questionCreate(Model model, QuestionForm questionForm) {
+=======
+    public String questionCreate(Model model, QuestionForm questionForm){
+>>>>>>> 3630690 (Nagiltae (#9))
         model.addAttribute("categoryList", categoryService.getinvestmentType());
         return "usr/board/question_form";
     }
@@ -70,8 +87,13 @@ public class QuestionController {
     //BindingResult 매개변수는 항상 @Valid 매개변수 바로 뒤에 위치
     @PreAuthorize("isAuthenticated()") //로그인이 필요한 메서드
     @PostMapping("/create")
+<<<<<<< HEAD
     public String questionCreate(@Valid QuestionForm questionForm, BindingResult bindingResult, Principal principal) {
         if (bindingResult.hasErrors()) {
+=======
+    public String questionCreate(@Valid QuestionForm questionForm, BindingResult bindingResult, Principal principal){
+        if(bindingResult.hasErrors()){
+>>>>>>> 3630690 (Nagiltae (#9))
             return "usr/board/question_form";
         }
         Member member = this.memberService.getUser(principal.getName()); //---- 유저 객체 구현후 추후 수정 --------------------
@@ -82,9 +104,15 @@ public class QuestionController {
 
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/modify/{id}")
+<<<<<<< HEAD
     public String questionModify(QuestionForm questionForm, Model model, @PathVariable("id") Integer id, Principal principal) {
         Question question = this.questionService.getQuestion(id);
         if (!question.getAuthor().getUserId().equals(principal.getName())) {
+=======
+    public String questionModify(QuestionForm questionForm, Model model, @PathVariable("id") Integer id, Principal principal){
+        Question question = this.questionService.getQuestion(id);
+        if(!question.getAuthor().getUserId().equals(principal.getName())){
+>>>>>>> 3630690 (Nagiltae (#9))
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
         } //---- 유저 객체 구현후 추후 수정 --------------------
         questionForm.setSubject(question.getSubject());
@@ -97,15 +125,24 @@ public class QuestionController {
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/modify/{id}")
     public String questionModify(@Valid QuestionForm questionForm, BindingResult bindingResult,
+<<<<<<< HEAD
                                  Principal principal, @PathVariable("id") Integer id) {
         if (bindingResult.hasErrors()) {
+=======
+                                 Principal principal, @PathVariable("id") Integer id){
+        if(bindingResult.hasErrors()){
+>>>>>>> 3630690 (Nagiltae (#9))
 
             return "usr/board/question_form";
         }
 
         Question question = this.questionService.getQuestion(id);
 
+<<<<<<< HEAD
         if (!question.getAuthor().getUserId().equals(principal.getName())) {
+=======
+        if(!question.getAuthor().getUserId().equals(principal.getName())){
+>>>>>>> 3630690 (Nagiltae (#9))
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
         }
 
@@ -116,9 +153,15 @@ public class QuestionController {
 
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/delete/{id}")
+<<<<<<< HEAD
     public String questionDelete(Principal principal, @PathVariable("id") Integer id) {
         Question question = this.questionService.getQuestion(id);
         if (!question.getAuthor().getUserId().equals(principal.getName())) {
+=======
+    public String questionDelete(Principal principal, @PathVariable("id") Integer id){
+        Question question = this.questionService.getQuestion(id);
+        if(!question.getAuthor().getUserId().equals(principal.getName())){
+>>>>>>> 3630690 (Nagiltae (#9))
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "삭제 권한이 없습니다.");
         }//---- 유저 객체 구현후 추후 수정 --------------------
         this.questionService.delete(question);
@@ -127,7 +170,11 @@ public class QuestionController {
 
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/vote/{id}")
+<<<<<<< HEAD
     public String questionVote(Principal principal, @PathVariable("id") Integer id) {
+=======
+    public String questionVote(Principal principal, @PathVariable("id") Integer id){
+>>>>>>> 3630690 (Nagiltae (#9))
         Question question = this.questionService.getQuestion(id);
         Member member = this.memberService.getUser(principal.getName());//---- 유저 객체 구현후 추후 수정 -------
         this.questionService.vote(question, member);//------ 유저 객체 구현후 추후 수정 -------
