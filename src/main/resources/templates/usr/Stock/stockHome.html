@@ -1,6 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
     <title>Stock Data</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
@@ -8,10 +10,17 @@
             $('#addStockButton').click(function () {
                 var symbol = $('#symbolInput').val();
                 if (symbol !== '') {
+                    var csrfToken = $("meta[name='_csrf']").attr("content");
+                    var csrfHeader = $("meta[name='_csrf_header']").attr("content");
+                    var headers = {};
+                    headers[csrfHeader] = csrfToken;
+
                     $.ajax({
                         type: 'POST',
                         url: '/stocks/add/' + symbol,
+                        headers: headers,
                         success: function (response) {
+                            console.log(response);
                             alert('종목이 추가되었습니다.');
                         },
                         error: function (xhr, status, error) {

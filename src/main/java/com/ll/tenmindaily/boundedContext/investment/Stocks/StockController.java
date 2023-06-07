@@ -3,11 +3,9 @@ package com.ll.tenmindaily.boundedContext.investment.Stocks;
 import com.ll.tenmindaily.base.rsData.RsData;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 
@@ -52,6 +50,7 @@ public class StockController {
 
     //yahoo fiance api db 저장 메서드
     @PostMapping("/add/{symbol}")
+    @ResponseBody
     public ResponseEntity<String> saveStockData(@PathVariable String symbol) {
         try {
             String companyInfo = stockService.getYahooCompanyInfo(symbol);
@@ -69,6 +68,7 @@ public class StockController {
 
     //DB에 저장된 티커가 있다면 삭제
     @PostMapping("/delete/{symbol}")
+    @PreAuthorize("hasRole('ROLE_USER')")
     public ResponseEntity<String> deleteStockData(@PathVariable String symbol) {
         boolean success = stockService.deleteStockData(symbol);
         if (success) {
