@@ -83,6 +83,9 @@ dependencies {
 	annotationProcessor "jakarta.persistence:jakarta.persistence-api"
 >>>>>>> 3630690 (Nagiltae (#9))
 
+	//jsoup 추가
+	implementation 'org.jsoup:jsoup:1.14.1'
+
 }
 
 tasks.named('test') {
