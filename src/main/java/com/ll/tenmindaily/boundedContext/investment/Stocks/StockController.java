@@ -50,17 +50,6 @@ public class StockController {
     //yahoo fiance api db 저장 메서드
     @PostMapping("/add/{symbol}")
     @ResponseBody
-<<<<<<< HEAD
-    public ResponseEntity<String> saveStockData(@PathVariable String symbol) {
-        try {
-            String companyInfo = stockService.getYahooCompanyInfo(symbol);
-            RsData<String> result = stockService.saveStockData(symbol, companyInfo);
-            if (result.isSuccess()) {
-                return ResponseEntity.ok(result.getData());
-            } else if (result.getData().equals("already_added")) { // 변경된 부분
-                return ResponseEntity.ok(result.getData()); // 변경된 부분
-            } else {
-=======
     public ResponseEntity<Integer> saveStockData(@PathVariable String symbol) {
         try {
             String companyInfo = stockService.getYahooCompanyInfo(symbol);
@@ -74,7 +63,6 @@ public class StockController {
                 //존재 하지 않는 티커의 경우
             }
             else {
->>>>>>> d171d9e (fix: 주식을 추가할때 발생하는 경우의 수 로직 수정)
                 return ResponseEntity.badRequest().body(result.getData());
             }
         } catch (IOException e) {
@@ -94,8 +82,4 @@ public class StockController {
         }
     }
 
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> d171d9e (fix: 주식을 추가할때 발생하는 경우의 수 로직 수정)
