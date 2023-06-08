@@ -4,6 +4,7 @@ import com.ll.tenmindaily.base.rsData.RsData;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
@@ -21,18 +22,6 @@ public class StockController {
     @GetMapping("/")
     public String showMain() {
         return "usr/Stock/stockHome";
-    }
-
-    //회사 정보(알파벤티지)
-    @GetMapping("/alpha/company/{symbol}")
-    public ResponseEntity<String> getAlphaCompanyInfo(@PathVariable String symbol) {
-        try {
-            String companyInfo = stockService.getAlphaCompanyInfo(symbol);
-            return ResponseEntity.ok("alpha: " + companyInfo);
-        } catch (IOException e) {
-            e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
     }
 
     //야후 파이낸스 회사정보 볼 수 있도록
@@ -79,6 +68,18 @@ public class StockController {
             return ResponseEntity.ok("주식 데이터 삭제 성공");
         } else {
             return ResponseEntity.badRequest().body("주식 데이터 삭제 실패");
+        }
+    }
+
+    //실제로 DB에 있는 내용을 보여주는메서드
+    @GetMapping("/show/{symbol}")
+    public String showStockInfo(@PathVariable String symbol, Model model) {
+        Stock stock = stockService.getStockBySymbol(symbol);
+        if (stock != null) {
+            model.addAttribute("stock", stock);
+            return "usr/Stock/stockInfo";
+        } else {
+            return "usr/Stock/error";
         }
     }
 

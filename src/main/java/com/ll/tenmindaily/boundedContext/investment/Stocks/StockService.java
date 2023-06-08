@@ -20,48 +20,7 @@ public class StockService {
         this.webClient = WebClient.create();
     }
 
-    private final String alphaApiKey = "..";
     private final String yahooApiBaseUrl = "https://query1.finance.yahoo.com";
-
-    // 알파벤티지 정보
-    public String getAlphaCompanyInfo(String symbol) throws IOException {
-        String url = "https://www.alphavantage.co/query?function=OVERVIEW&symbol=" + symbol + "&apikey=" + alphaApiKey;
-        return webClient.get()
-                .uri(url)
-                .retrieve()
-                .bodyToMono(String.class)
-                .block();
-    }
-
-    // 알파벤티지 정보
-    public String getAlphaIncomeStatement(String symbol) throws IOException {
-        String url = "https://www.alphavantage.co/query?function=INCOME_STATEMENT&symbol=" + symbol + "&apikey=" + alphaApiKey;
-        return webClient.get()
-                .uri(url)
-                .retrieve()
-                .bodyToMono(String.class)
-                .block();
-    }
-
-    // 알파벤티지 정보
-    public String getAlphaBalanceSheet(String symbol) throws IOException {
-        String url = "https://www.alphavantage.co/query?function=BALANCE_SHEET&symbol=" + symbol + "&apikey=" + alphaApiKey;
-        return webClient.get()
-                .uri(url)
-                .retrieve()
-                .bodyToMono(String.class)
-                .block();
-    }
-
-    // 알파벤티지 정보
-    public String getAlphaCashFlow(String symbol) throws IOException {
-        String url = "https://www.alphavantage.co/query?function=CASH_FLOW&symbol=" + symbol + "&apikey=" + alphaApiKey;
-        return webClient.get()
-                .uri(url)
-                .retrieve()
-                .bodyToMono(String.class)
-                .block();
-    }
 
     // 야후 파이낸스 api 정보
     public String getYahooCompanyInfo(String symbol) throws IOException {
@@ -182,5 +141,10 @@ public class StockService {
             stockRepository.delete(existingStock);
             return true;
         }
+    }
+
+    //
+    public Stock getStockBySymbol(String symbol) {
+        return stockRepository.findBySymbol(symbol);
     }
 }
