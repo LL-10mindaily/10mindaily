@@ -3,7 +3,6 @@ package com.ll.tenmindaily.boundedContext.investment.Stocks;
 import com.ll.tenmindaily.base.rsData.RsData;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -57,6 +56,8 @@ public class StockController {
             RsData<String> result = stockService.saveStockData(symbol, companyInfo);
             if (result.isSuccess()) {
                 return ResponseEntity.ok(result.getData());
+            } else if (result.getData().equals("already_added")) { // 변경된 부분
+                return ResponseEntity.ok(result.getData()); // 변경된 부분
             } else {
                 return ResponseEntity.badRequest().body(result.getData());
             }
@@ -68,7 +69,6 @@ public class StockController {
 
     //DB에 저장된 티커가 있다면 삭제
     @PostMapping("/delete/{symbol}")
-    @PreAuthorize("hasRole('ROLE_USER')")
     public ResponseEntity<String> deleteStockData(@PathVariable String symbol) {
         boolean success = stockService.deleteStockData(symbol);
         if (success) {

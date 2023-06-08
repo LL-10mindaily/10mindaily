@@ -21,7 +21,13 @@
                         headers: headers,
                         success: function (response) {
                             console.log(response);
-                            alert('종목이 추가되었습니다.');
+                            if (response === 'already_added') {
+                                alert('이미 추가된 종목입니다.');
+                            } else if (response === 'success') {
+                                alert('종목이 추가되었습니다.');
+                            } else {
+                                alert('종목 추가에 실패했습니다.');
+                            }
                         },
                         error: function (xhr, status, error) {
                             alert('종목 추가에 실패했습니다. 에러: ' + error);
