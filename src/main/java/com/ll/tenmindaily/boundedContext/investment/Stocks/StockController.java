@@ -36,13 +36,37 @@ public class StockController {
         }
     }
 
+    // 야후 파이낸스 API를 통해 애널리스트들의 예측 정보를 가져오는 메서드
+    @GetMapping("/yahoo/analystPredictions/{symbol}")
+    public ResponseEntity<String> getYahooAnalystPredictions(@PathVariable String symbol) {
+        try {
+            String analystPredictions = stockService.getYahooAnalystPredictions(symbol);
+            return ResponseEntity.ok(analystPredictions);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    // 야후 파이낸스 API를 통해 주식의 재무 데이터를 가져오는 메서드
+    @GetMapping("/yahoo/financialData/{symbol}")
+    public ResponseEntity<String> getYahooFinancialData(@PathVariable String symbol) {
+        try {
+            String financialData = stockService.getYahooFinancialData(symbol);
+            return ResponseEntity.ok(financialData);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
     //yahoo fiance api db 저장 메서드
     @PostMapping("/add/{symbol}")
     @ResponseBody
     public ResponseEntity<Integer> saveStockData(@PathVariable String symbol) {
         try {
             String companyInfo = stockService.getYahooCompanyInfo(symbol);
-            RsData<Integer> result = stockService.saveStockData(symbol, companyInfo);
+            RsData<Integer> result = stockService.saveStockCompanyData(symbol, companyInfo);
             //성공코드 1번
             if (result.getData() == 1) {
                 return ResponseEntity.ok(result.getData());

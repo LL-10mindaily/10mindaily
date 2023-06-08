@@ -22,7 +22,7 @@ public class StockService {
 
     private final String yahooApiBaseUrl = "https://query1.finance.yahoo.com";
 
-    // 야후 파이낸스 api 정보
+    // 야후 파이낸스 회사 api 정보
     public String getYahooCompanyInfo(String symbol) throws IOException {
         String endpoint = "/v10/finance/quoteSummary";
         String modules = "summaryDetail";
@@ -35,9 +35,35 @@ public class StockService {
                 .block();
     }
 
+    // 야후 파이낸스 API를 통해 애널리스트들의 예측 정보를 가져오는 메서드
+    public String getYahooAnalystPredictions(String symbol) throws IOException {
+        String endpoint = "/v10/finance/quoteSummary";
+        String modules = "recommendationTrend";
+        String url = yahooApiBaseUrl + endpoint + "/" + symbol + "?modules=" + modules;
+
+        return webClient.get()
+                .uri(url)
+                .retrieve()
+                .bodyToMono(String.class)
+                .block();
+    }
+
+    // 야후 파이낸스 API를 통해 주식의 예측가격 데이터를 가져오는 메서드
+    public String getYahooFinancialData(String symbol) throws IOException {
+        String endpoint = "/v10/finance/quoteSummary";
+        String modules = "financialData";
+        String url = yahooApiBaseUrl + endpoint + "/" + symbol + "?modules=" + modules;
+
+        return webClient.get()
+                .uri(url)
+                .retrieve()
+                .bodyToMono(String.class)
+                .block();
+    }
+
     // 컨트롤러에서 받아온 티커를 DB에 저장하는 메서드
     //0번 실패 코드, 1번 성공 코드, 2번 중복 코드
-    public RsData<Integer> saveStockData(String symbol, String companyInfo) {
+    public RsData<Integer> saveStockCompanyData(String symbol, String companyInfo) {
         Stock existingStock = stockRepository.findBySymbol(symbol);
 
         if (existingStock == null) {
