@@ -183,19 +183,23 @@ public class StockController {
             RsData<Integer> result = stockService.saveStockData(symbol, companyInfo);
 =======
             String targetInfo = stockService.getYahooFinancialData(symbol);
-            RsData<Integer> result = stockService.saveStockCompanyData(symbol, companyInfo,targetInfo);
+            RsData<Integer> result = stockService.saveStockCompanyData(symbol, companyInfo, targetInfo);
 
 >>>>>>> 96dd069 (feat: 주식 관련애널리스트 필드 저장 기능 추가)
             //성공코드 1번
             if (result.getData() == 1) {
                 return ResponseEntity.ok(result.getData());
                 //중복된 주식을 추가한경우
-            } else if (result.getData() == 2 ) {
+            } else if (result.getData() == 2) {
                 return ResponseEntity.ok(result.getData());
                 //존재 하지 않는 티커의 경우
+<<<<<<< HEAD
             }
             else {
 >>>>>>> d171d9e (fix: 주식을 추가할때 발생하는 경우의 수 로직 수정)
+=======
+            } else {
+>>>>>>> 739f0e5 (style: coinNews.html 마무리 ui작업 완료)
                 return ResponseEntity.badRequest().body(result.getData());
             }
         } catch (IOException e) {

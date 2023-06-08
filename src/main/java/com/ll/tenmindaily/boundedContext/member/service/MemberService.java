@@ -61,6 +61,7 @@ public class MemberService {
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     public Optional<Member> findByUserId(String userId) {
         return memberRepository.findByUserId(userId);
     }
@@ -124,10 +125,13 @@ public class MemberService {
 =======
 =======
     public Member getUser(String username){
+=======
+    public Member getUser(String username) {
+>>>>>>> 202c0f5 (style: coinNews.html 마무리 ui작업 완료)
         Optional<Member> member = this.memberRepository.findByUserId(username);
-        if(member.isPresent()){
+        if (member.isPresent()) {
             return member.get();
-        }else {
+        } else {
             throw new DataNotFoundException("siteuser not found");
         }
     }

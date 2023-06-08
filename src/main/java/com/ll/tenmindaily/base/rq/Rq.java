@@ -3,9 +3,12 @@ package com.ll.tenmindaily.base.rq;
 import com.ll.tenmindaily.boundedContext.member.entity.Member;
 import com.ll.tenmindaily.boundedContext.member.service.MemberService;
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 import jakarta.servlet.http.HttpServlet;
 >>>>>>> 50c3a61 (Nagiltae (#9))
+=======
+>>>>>>> 202c0f5 (style: coinNews.html 마무리 ui작업 완료)
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
