@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 //package com.ll.tenmindaily.boundedContext.investment.Stocks;
 //
 //import com.ll.tenmindaily.base.rsData.RsData;
@@ -184,6 +185,8 @@
 //    }
 //}
 
+=======
+>>>>>>> d171d9e (fix: 주식을 추가할때 발생하는 경우의 수 로직 수정)
 package com.ll.tenmindaily.boundedContext.investment.Stocks;
 
 import com.ll.tenmindaily.base.rsData.RsData;
@@ -263,7 +266,12 @@ public class StockService {
     }
 
     // 컨트롤러에서 받아온 티커를 DB에 저장하는 메서드
+<<<<<<< HEAD
     public RsData<String> saveStockData(String symbol, String companyInfo) {
+=======
+    //0번 실패 코드, 1번 성공 코드, 2번 중복 코드
+    public RsData<Integer> saveStockData(String symbol, String companyInfo) {
+>>>>>>> d171d9e (fix: 주식을 추가할때 발생하는 경우의 수 로직 수정)
         Stock existingStock = stockRepository.findBySymbol(symbol);
 
         if (existingStock == null) {
@@ -272,12 +280,21 @@ public class StockService {
             if (stock != null) {
                 stock.setSymbol(symbol);  // 종목 심볼 설정
                 stockRepository.save(stock);
+<<<<<<< HEAD
                 return RsData.successOf("success");
             } else {
                 return RsData.failOf("종목 추가에 실패했습니다.");
             }
         } else {
             return RsData.failOf("already_added");
+=======
+                return RsData.successOf(1);
+            } else {
+                return RsData.failOf(0);
+            }
+        } else {
+            return RsData.failOf(2);
+>>>>>>> d171d9e (fix: 주식을 추가할때 발생하는 경우의 수 로직 수정)
         }
     }
 
@@ -368,4 +385,8 @@ public class StockService {
             return true;
         }
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> d171d9e (fix: 주식을 추가할때 발생하는 경우의 수 로직 수정)
