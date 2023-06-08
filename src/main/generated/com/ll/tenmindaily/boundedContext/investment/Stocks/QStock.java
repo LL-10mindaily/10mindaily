@@ -21,6 +21,8 @@ public class QStock extends EntityPathBase<Stock> {
 
     public final DateTimePath<java.time.LocalDateTime> createDate = createDateTime("createDate", java.time.LocalDateTime.class);
 
+    public final NumberPath<Double> currentPrice = createNumber("currentPrice", Double.class);
+
     public final NumberPath<Double> dividendRate = createNumber("dividendRate", Double.class);
 
     public final NumberPath<Double> dividendYield = createNumber("dividendYield", Double.class);
@@ -39,13 +41,17 @@ public class QStock extends EntityPathBase<Stock> {
 
     public final NumberPath<Double> marketCap = createNumber("marketCap", Double.class);
 
-    public final NumberPath<Double> open = createNumber("open", Double.class);
-
     public final NumberPath<Double> previousClose = createNumber("previousClose", Double.class);
 
     public final NumberPath<Double> priceToSalesTrailing12Months = createNumber("priceToSalesTrailing12Months", Double.class);
 
     public final StringPath symbol = createString("symbol");
+
+    public final NumberPath<Double> targetHighPrice = createNumber("targetHighPrice", Double.class);
+
+    public final NumberPath<Double> targetLowPrice = createNumber("targetLowPrice", Double.class);
+
+    public final NumberPath<Double> targetMedianPrice = createNumber("targetMedianPrice", Double.class);
 
     public final NumberPath<Double> twoHundredDayAverage = createNumber("twoHundredDayAverage", Double.class);
 

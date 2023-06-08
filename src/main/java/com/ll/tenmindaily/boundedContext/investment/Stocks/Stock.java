@@ -28,8 +28,6 @@ public class Stock {
     private String symbol;
     //장 종가
     private Double previousClose;
-    //장 open가
-    private Double open;
     //주당 배당금
     private Double dividendRate;
     //주가의 배당 비율
@@ -51,4 +49,12 @@ public class Stock {
     //200일 이동 평균 주가
     private Double twoHundredDayAverage;
 
+    //현재 종가
+    private Double currentPrice ;
+    //타겟 하이
+    private Double targetHighPrice;
+    //타겟 로우
+    private Double targetLowPrice;
+    // 타켓 중위값
+    private Double targetMedianPrice;
 }
