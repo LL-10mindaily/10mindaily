@@ -57,11 +57,11 @@ public class MemberService {
         return memberRepository.findByUsername(username);
     }
 
-    public Member getUser(String username){
+    public Member getUser(String username) {
         Optional<Member> member = this.memberRepository.findByUserId(username);
-        if(member.isPresent()){
+        if (member.isPresent()) {
             return member.get();
-        }else {
+        } else {
             throw new DataNotFoundException("siteuser not found");
         }
     }

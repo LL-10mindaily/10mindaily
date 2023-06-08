@@ -1,7 +1,6 @@
 package com.ll.tenmindaily.boundedContext.board.question;
 
 
-
 import com.ll.tenmindaily.base.exception.DataNotFoundException;
 import com.ll.tenmindaily.boundedContext.board.answer.Answer;
 import com.ll.tenmindaily.boundedContext.board.category.Category;
@@ -59,20 +58,20 @@ public class QuestionService {
         return questionPage;
     }
 
-    public Question getQuestion(Integer id){
+    public Question getQuestion(Integer id) {
         Optional<Question> question = this.questionRepository.findById(id);
-        if(question.isPresent()){
+        if (question.isPresent()) {
             Question question1 = question.get();
-            question1.setView(question1.getView()+1);
+            question1.setView(question1.getView() + 1);
             this.questionRepository.save(question1);
             return question1;
-        }else{
+        } else {
             throw new DataNotFoundException("question not found");
         }
     }
 
-    public void create(String subject, String content, Member user, Category category){
-        Question q= new Question();
+    public void create(String subject, String content, Member user, Category category) {
+        Question q = new Question();
         q.setSubject(subject);
         q.setContent(content);
         q.setCreateDate(LocalDateTime.now());
@@ -81,7 +80,7 @@ public class QuestionService {
         this.questionRepository.save(q);
     }
 
-    public void modify(Question question, String subject, String content, Category category){
+    public void modify(Question question, String subject, String content, Category category) {
         question.setSubject(subject);
         question.setContent(content);
         question.setModifyDate(LocalDateTime.now());
@@ -89,11 +88,11 @@ public class QuestionService {
         this.questionRepository.save(question);
     }
 
-    public void delete(Question question){
+    public void delete(Question question) {
         this.questionRepository.delete(question);
     }
 
-    public void vote(Question question, Member member){ // ---- 유저 객체 구현후 추후 수정 --------------------
+    public void vote(Question question, Member member) { // ---- 유저 객체 구현후 추후 수정 --------------------
         question.getVoter().add(member);
         this.questionRepository.save(question);
     }
@@ -104,6 +103,7 @@ public class QuestionService {
     private Specification<Question> search(String kw) {
         return new Specification<>() {
             private static final long serialVersionUID = 1L;
+
             @Override
             public Predicate toPredicate(Root<Question> q, CriteriaQuery<?> query, CriteriaBuilder cb) {
                 query.distinct(true);  // 중복을 제거
