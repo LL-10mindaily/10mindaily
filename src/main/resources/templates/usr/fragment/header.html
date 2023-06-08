@@ -1,56 +1,10 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
->
-<<<<<<< HEAD
-=======
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
->>>>>>> d171d9e (fix: 주식을 추가할때 발생하는 경우의 수 로직 수정)
-
-<div th:fragment="header" class="sticky top-0 z-50">
-    <div class="navbar bg-primary-content max-w-3xl mx-auto ">
-        <!--드롭다운버튼-->
-        <div class="flex-none">
-            <div class="dropdown">
-                <label tabindex="0" class="btn btn-ghost btn-circle">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
-                         stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                              d="M4 6h16M4 12h16M4 18h7"/>
-                    </svg>
-                </label>
-                <ul tabindex="0"
-                    class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
-                    <li><a>Homepage</a></li>
-                    <li><a>Portfolio</a></li>
-                    <li><a>About</a></li>
-                </ul>
-            </div>
-        </div>
 <div th:fragment="header" class ="sticky top-0 z-50">
     <div class="navbar bg-primary text-primary-content max-w-3xl mx-auto ">
         <!--드롭다운 버튼 삭제-->
-
-<div th:fragment="header" class="sticky top-0 z-50">
-    <div class="navbar bg-primary-content max-w-3xl mx-auto ">
-        <!--드롭다운버튼-->
-        <div class="flex-none">
-            <div class="dropdown">
-                <label tabindex="0" class="btn btn-ghost btn-circle">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
-                         stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                              d="M4 6h16M4 12h16M4 18h7"/>
-                    </svg>
-                </label>
-                <ul tabindex="0"
-                    class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
-                    <li><a>Homepage</a></li>
-                    <li><a>Portfolio</a></li>
-                    <li><a>About</a></li>
-                </ul>
-            </div>
-        </div>
-
         <!--로고-->
         <div class="flex-none">
             <a href ="/" class="btn btn-ghost normal-case text-xl">10minDaily</a>
@@ -61,19 +15,10 @@
                 <li tabindex="0">
                     <a>
                         재테크
-                        <svg class="fill-current" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                             viewBox="0 0 24 24">
-                            <path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"/>
-                        </svg>
+                        <svg class="fill-current" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"/></svg>
                     </a>
                     <ul class="p-2 bg-base-100">
-<<<<<<< HEAD
-
                         <li><a href="/stocks/">주식</a></li>
-                        <li><a>주식</a></li>
-=======
-                        <li><a href="/stocks/">주식</a></li>
->>>>>>> d171d9e (fix: 주식을 추가할때 발생하는 경우의 수 로직 수정)
                         <li><a href="/coinNews/S1N1">코인</a></li>
                         <li><a>부동산</a></li>
                         <li><a>뮤직테크</a></li>
@@ -109,7 +54,7 @@
         <!--검색창, 마이페이지-->
         <div class="flex-none gap-2">
             <div class="form-control">
-                <input type="text" placeholder="Search" class="input input-bordered"/>
+                <input type="text" placeholder="Search" class="input input-bordered" />
             </div>
 
             <div class="dropdown dropdown-end">
@@ -118,8 +63,7 @@
                         <i class="fa-solid fa-user content-center "></i>
                     </div>
                 </label>
-                <ul tabindex="0"
-                    class="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52">
+                <ul tabindex="0" class="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52">
                     <li>
                         <a class="justify-between">
                             마이페이지
@@ -129,8 +73,7 @@
                     <li><a>설정</a></li>
                     <li th:if="${@rq.isLogout()}"><a href="/usr/member/login">로그인</a></li>
                     <li th:if="${@rq.isLogin()}"><a href="javascript:" onclick="$(this).next().submit();">로그아웃</a>
-                        <form class="!hidden" hidden th:action="|/usr/member/logout|" method="POST"></form>
-                    </li>
+                        <form class="!hidden" hidden th:action="|/usr/member/logout|" method="POST"></form></li>
                 </ul>
             </div>
         </div>

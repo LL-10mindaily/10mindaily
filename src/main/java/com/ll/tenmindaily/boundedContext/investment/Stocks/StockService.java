@@ -62,12 +62,12 @@ public class StockService {
     }
 
     // 컨트롤러에서 받아온 티커를 DB에 저장하는 메서드
-    //0번 실패 코드, 1번 성공 코드, 2번 중복 코드
-    public RsData<Integer> saveStockCompanyData(String symbol, String companyInfo) {
+    // 0번 실패 코드, 1번 성공 코드, 2번 중복 코드
+    public RsData<Integer> saveStockCompanyData(String symbol, String companyInfo, String targetInfo) {
         Stock existingStock = stockRepository.findBySymbol(symbol);
 
         if (existingStock == null) {
-            Stock stock = yahooParseStockData(companyInfo);
+            Stock stock = yahooParseStockCompanyData(companyInfo, targetInfo);
 
             if (stock != null) {
                 stock.setSymbol(symbol);  // 종목 심볼 설정
@@ -81,57 +81,95 @@ public class StockService {
         }
     }
 
-    // 야후 api 파싱 메서드
-    public Stock yahooParseStockData(String companyInfo) {
-        try {
-            JSONObject stockDataObject = new JSONObject(companyInfo);
-            JSONObject quoteSummaryObject = stockDataObject.getJSONObject("quoteSummary");
-            JSONArray resultArray = quoteSummaryObject.getJSONArray("result");
-
-            if (resultArray.length() > 0) {
-                JSONObject summaryDetailObject = resultArray.getJSONObject(0).getJSONObject("summaryDetail");
-
-                // 필요한 데이터 추출
-                double previousClose = summaryDetailObject.getJSONObject("previousClose").getDouble("raw");
-                double open = summaryDetailObject.getJSONObject("open").getDouble("raw");
-
-                // 아래의 배당정보들은 없을 수 도 있으니까 제외할 수 있도록 ==> null값으로 넣을 수 있게
-                // 배당 정보 추출
-                Double dividendRate = summaryDetailObject.getJSONObject("dividendRate").optDouble("raw");
-                Double dividendYield = summaryDetailObject.getJSONObject("dividendYield").optDouble("raw");
-                String exDividendDate = summaryDetailObject.getJSONObject("exDividendDate").optString("fmt");
-
-                double marketCap = summaryDetailObject.getJSONObject("marketCap").getDouble("raw");
-                double forwardPE = summaryDetailObject.getJSONObject("forwardPE").getDouble("raw");
-                double fiftyTwoWeekLow = summaryDetailObject.getJSONObject("fiftyTwoWeekLow").getDouble("raw");
-                double fiftyTwoWeekHigh = summaryDetailObject.getJSONObject("fiftyTwoWeekHigh").getDouble("raw");
-                double fiftyDayAverage = summaryDetailObject.getJSONObject("fiftyDayAverage").getDouble("raw");
-                double priceToSalesTrailing12Months = summaryDetailObject.getJSONObject("priceToSalesTrailing12Months").getDouble("raw");
-                double twoHundredDayAverage = summaryDetailObject.getJSONObject("twoHundredDayAverage").getDouble("raw");
-
-                // Stock 객체 생성
-                Stock stock = new Stock();
-                stock.setPreviousClose(previousClose);
-                stock.setOpen(open);
-                if (Double.isNaN(dividendRate)) {
-                    stock.setDividendRate(null);
-                    stock.setDividendYield(null);
-                    stock.setExDividendDate(null);
-                } else {
-                    stock.setDividendRate(dividendRate);
-                    stock.setDividendYield(dividendYield);
-                    stock.setExDividendDate(exDividendDate);
-                }
-                stock.setMarketCap(marketCap);
-                stock.setForwardPE(forwardPE);
-                stock.setFiftyTwoWeekLow(fiftyTwoWeekLow);
-                stock.setFiftyTwoWeekHigh(fiftyTwoWeekHigh);
-                stock.setFiftyDayAverage(fiftyDayAverage);
-                stock.setPriceToSalesTrailing12Months(priceToSalesTrailing12Months);
-                stock.setTwoHundredDayAverage(twoHundredDayAverage);
-
-                return stock;
+    // 0번 실패 코드, 1번 성공 코드, 2번 중복 코드
+    public RsData<Integer> saveTargetPriceData(String symbol, String targetInfo) {
+        Stock existingStock = stockRepository.findBySymbol(symbol);
+        if (existingStock == null){
+            return RsData.failOf(2);
+        } else {
+            Stock stock = yahooParseStockCompanyData(null, targetInfo);
+            if (stock != null) {
+                existingStock.setCurrentPrice(stock.getCurrentPrice());
+                existingStock.setTargetHighPrice(stock.getTargetHighPrice());
+                existingStock.setTargetLowPrice(stock.getTargetLowPrice());
+                existingStock.setTargetMedianPrice(stock.getTargetMedianPrice());
+                stockRepository.save(existingStock);
+                return RsData.successOf(1);
+            } else {
+                return RsData.failOf(0);
             }
+        }
+    }
+
+    public Stock yahooParseStockCompanyData(String companyInfo, String targetInfo) {
+        try {
+            Stock stock = new Stock();
+
+            if (companyInfo != null) {
+                JSONObject stockDataObject = new JSONObject(companyInfo);
+                JSONObject quoteSummaryObject = stockDataObject.getJSONObject("quoteSummary");
+                JSONArray resultArray = quoteSummaryObject.getJSONArray("result");
+
+                if (resultArray.length() > 0) {
+                    JSONObject summaryDetailObject = resultArray.getJSONObject(0).getJSONObject("summaryDetail");
+
+                    // 필요한 데이터 추출
+                    double previousClose = summaryDetailObject.getJSONObject("previousClose").getDouble("raw");
+                    // 아래의 배당정보들은 없을 수도 있으니까 제외할 수 있도록 ==> null값으로 넣을 수 있게
+                    // 배당 정보 추출
+                    Double dividendRate = summaryDetailObject.getJSONObject("dividendRate").optDouble("raw");
+                    Double dividendYield = summaryDetailObject.getJSONObject("dividendYield").optDouble("raw");
+                    String exDividendDate = summaryDetailObject.getJSONObject("exDividendDate").optString("fmt");
+
+                    double marketCap = summaryDetailObject.getJSONObject("marketCap").getDouble("raw");
+                    double forwardPE = summaryDetailObject.getJSONObject("forwardPE").getDouble("raw");
+                    double fiftyTwoWeekLow = summaryDetailObject.getJSONObject("fiftyTwoWeekLow").getDouble("raw");
+                    double fiftyTwoWeekHigh = summaryDetailObject.getJSONObject("fiftyTwoWeekHigh").getDouble("raw");
+                    double fiftyDayAverage = summaryDetailObject.getJSONObject("fiftyDayAverage").getDouble("raw");
+                    double priceToSalesTrailing12Months = summaryDetailObject.getJSONObject("priceToSalesTrailing12Months").getDouble("raw");
+                    double twoHundredDayAverage = summaryDetailObject.getJSONObject("twoHundredDayAverage").getDouble("raw");
+
+                    // Stock 객체 설정
+                    stock.setPreviousClose(previousClose);
+                    if (Double.isNaN(dividendRate)) {
+                        stock.setDividendRate(null);
+                        stock.setDividendYield(null);
+                        stock.setExDividendDate(null);
+                    } else {
+                        stock.setDividendRate(dividendRate);
+                        stock.setDividendYield(dividendYield);
+                        stock.setExDividendDate(exDividendDate);
+                    }
+                    stock.setMarketCap(marketCap);
+                    stock.setForwardPE(forwardPE);
+                    stock.setFiftyTwoWeekLow(fiftyTwoWeekLow);
+                    stock.setFiftyTwoWeekHigh(fiftyTwoWeekHigh);
+                    stock.setFiftyDayAverage(fiftyDayAverage);
+                    stock.setPriceToSalesTrailing12Months(priceToSalesTrailing12Months);
+                    stock.setTwoHundredDayAverage(twoHundredDayAverage);
+                }
+            }
+
+            if (targetInfo != null) {
+                JSONObject targetDataObject = new JSONObject(targetInfo);
+                JSONObject quoteSummaryTargetObject = targetDataObject.getJSONObject("quoteSummary");
+                JSONArray targetResultArray = quoteSummaryTargetObject.getJSONArray("result");
+
+                if (targetResultArray.length() > 0) {
+                    JSONObject targetFirstResult = targetResultArray.getJSONObject(0);
+                    JSONObject financialData = targetFirstResult.getJSONObject("financialData");
+
+                    // "financialData" 객체에 "targetHighPrice", "targetLowPrice", "targetMedianPrice" 키가 있는지 확인
+                    if (financialData.has("targetHighPrice") && financialData.has("targetLowPrice") && financialData.has("targetMedianPrice")) {
+                        stock.setCurrentPrice(financialData.getJSONObject("currentPrice").getDouble("raw"));
+                        stock.setTargetHighPrice(financialData.getJSONObject("targetHighPrice").getDouble("raw"));
+                        stock.setTargetLowPrice(financialData.getJSONObject("targetLowPrice").getDouble("raw"));
+                        stock.setTargetMedianPrice(financialData.getJSONObject("targetMedianPrice").getDouble("raw"));
+                    }
+                }
+            }
+
+            return stock;
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -139,11 +177,11 @@ public class StockService {
     }
 
     // 스케줄러에서 매일 아침 7시5분에 업데이트 해주는 메서드
-    public RsData<String> updateStock(String symbol, String companyInfo) {
+    public RsData<String> updateStock(String symbol, String companyInfo , String targetInfo) {
         Stock existingStock = stockRepository.findBySymbol(symbol);
 
         if (existingStock != null) {
-            Stock updatedStock = yahooParseStockData(companyInfo);
+            Stock updatedStock = yahooParseStockCompanyData(companyInfo , targetInfo);
 
             if (updatedStock != null) {
                 updatedStock.setId(existingStock.getId());  // 기존 주식 정보의 ID 설정
@@ -169,7 +207,7 @@ public class StockService {
         }
     }
 
-    //
+
     public Stock getStockBySymbol(String symbol) {
         return stockRepository.findBySymbol(symbol);
     }

@@ -19,10 +19,6 @@
         <td th:text="${stock.previousClose}"></td>
     </tr>
     <tr>
-        <td>장 Open가</td>
-        <td th:text="${stock.open}"></td>
-    </tr>
-    <tr>
         <td>주당 배당금</td>
         <td th:text="${stock.dividendRate}"></td>
     </tr>
@@ -61,6 +57,22 @@
     <tr>
         <td>200일 이동 평균 주가</td>
         <td th:text="${stock.twoHundredDayAverage}"></td>
+    </tr>
+    <tr>
+        <td>마감 종가</td>
+        <td th:text="${stock.currentPrice}"></td>
+    </tr>
+    <tr>
+        <td>애널리스트 목표 최고가</td>
+        <td th:text="${stock.targetHighPrice}"></td>
+    </tr>
+    <tr>
+        <td>애널리스트 목표 최저가</td>
+        <td th:text="${stock.targetLowPrice}"></td>
+    </tr>
+    <tr>
+        <td>애널리스트들의 평균가</td>
+        <td th:text="${stock.targetMedianPrice}"></td>
     </tr>
 </table>
 </body>
