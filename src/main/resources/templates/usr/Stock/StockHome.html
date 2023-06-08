@@ -12,10 +12,31 @@
                         type: 'POST',
                         url: '/stocks/add/' + symbol,
                         success: function (response) {
+<<<<<<< HEAD:src/main/resources/templates/usr/Stock/StockHome.html
                             alert('종목이 추가되었습니다.');
+=======
+<<<<<<< HEAD
+                            console.log(response);
+                            if (response === 'already_added') {
+                                alert('이미 추가된 종목입니다.');
+                            } else if (response === 'success') {
+=======
+                            if (response === 2) {
+                                alert('이미 추가된 종목입니다.');
+                            } else if (response === 1) {
+>>>>>>> d171d9e (fix: 주식을 추가할때 발생하는 경우의 수 로직 수정)
+                                alert('종목이 추가되었습니다.');
+                            } else {
+                                alert('종목 추가에 실패했습니다.');
+                            }
+>>>>>>> fe1c3bf (fix: 주식을 추가할때 발생하는 경우의 수 로직 수정):src/main/resources/templates/usr/Stock/stockHome.html
                         },
                         error: function (xhr, status, error) {
+<<<<<<< HEAD
                             alert('종목 추가에 실패했습니다. 에러: ' + error);
+=======
+                            alert('존재하지 않는 티커입니다.');
+>>>>>>> d171d9e (fix: 주식을 추가할때 발생하는 경우의 수 로직 수정)
                         }
                     });
                 }
@@ -28,4 +49,8 @@
 <input type="text" id="symbolInput" placeholder="종목을 입력하세요">
 <button id="addStockButton">추가</button>
 </body>
+<<<<<<< HEAD
 </html>
+=======
+</html>
+>>>>>>> d171d9e (fix: 주식을 추가할때 발생하는 경우의 수 로직 수정)
