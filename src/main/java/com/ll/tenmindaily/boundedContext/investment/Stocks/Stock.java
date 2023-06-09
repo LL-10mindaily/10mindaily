@@ -50,7 +50,7 @@ public class Stock {
     private Double twoHundredDayAverage;
 
     //현재 종가
-    private Double currentPrice;
+    private Double currentPrice ;
     //타겟 하이
     private Double targetHighPrice;
     //타겟 로우

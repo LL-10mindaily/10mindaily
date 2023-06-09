@@ -16,8 +16,7 @@ public class StockScheduler {
         this.stockRepository = stockRepository;
     }
 
-    //    @Scheduled(cron = "0 10 7 * * *") // 매일 오전 7시 10분에 실행
-    @Scheduled(fixedRate = 10000) // 매 10초마다 실행
+    @Scheduled(cron = "0 10 7 * * *") // 매일 오전 7시 10분에 실행
     public void updateStockData() {
         updateStock();
     }
@@ -32,7 +31,7 @@ public class StockScheduler {
             try {
                 companyInfo = stockService.getYahooCompanyInfo(symbol.getSymbol());
                 targetInfo = stockService.getYahooFinancialData(symbol.getSymbol());
-                stockService.updateStock(symbol.getSymbol(), companyInfo, targetInfo);
+                stockService.updateStock(symbol.getSymbol(), companyInfo , targetInfo);
             } catch (Exception e) {
                 e.printStackTrace();
             }

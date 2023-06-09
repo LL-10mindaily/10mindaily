@@ -84,7 +84,7 @@ public class StockService {
     // 0번 실패 코드, 1번 성공 코드, 2번 중복 코드
     public RsData<Integer> saveTargetPriceData(String symbol, String targetInfo) {
         Stock existingStock = stockRepository.findBySymbol(symbol);
-        if (existingStock == null) {
+        if (existingStock == null){
             return RsData.failOf(2);
         } else {
             Stock stock = yahooParseStockCompanyData(null, targetInfo);
@@ -122,7 +122,7 @@ public class StockService {
                     String exDividendDate = summaryDetailObject.getJSONObject("exDividendDate").optString("fmt");
 
                     double marketCap = summaryDetailObject.getJSONObject("marketCap").getDouble("raw");
-                    double forwardPE = summaryDetailObject.getJSONObject("forwardPE").getDouble("raw");
+                    double forwardPE = summaryDetailObject.getJSONObject("forwardPE").optDouble("raw");
                     double fiftyTwoWeekLow = summaryDetailObject.getJSONObject("fiftyTwoWeekLow").getDouble("raw");
                     double fiftyTwoWeekHigh = summaryDetailObject.getJSONObject("fiftyTwoWeekHigh").getDouble("raw");
                     double fiftyDayAverage = summaryDetailObject.getJSONObject("fiftyDayAverage").getDouble("raw");
@@ -141,7 +141,12 @@ public class StockService {
                         stock.setExDividendDate(exDividendDate);
                     }
                     stock.setMarketCap(marketCap);
-                    stock.setForwardPE(forwardPE);
+                    if(Double.isNaN(forwardPE)){
+                        stock.setForwardPE(null);
+                    }else {
+                        stock.setForwardPE(forwardPE);
+                    }
+
                     stock.setFiftyTwoWeekLow(fiftyTwoWeekLow);
                     stock.setFiftyTwoWeekHigh(fiftyTwoWeekHigh);
                     stock.setFiftyDayAverage(fiftyDayAverage);
@@ -177,11 +182,11 @@ public class StockService {
     }
 
     // 스케줄러에서 매일 아침 7시5분에 업데이트 해주는 메서드
-    public RsData<String> updateStock(String symbol, String companyInfo, String targetInfo) {
+    public RsData<String> updateStock(String symbol, String companyInfo , String targetInfo) {
         Stock existingStock = stockRepository.findBySymbol(symbol);
 
         if (existingStock != null) {
-            Stock updatedStock = yahooParseStockCompanyData(companyInfo, targetInfo);
+            Stock updatedStock = yahooParseStockCompanyData(companyInfo , targetInfo);
 
             if (updatedStock != null) {
                 updatedStock.setId(existingStock.getId());  // 기존 주식 정보의 ID 설정
