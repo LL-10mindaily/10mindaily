@@ -16,7 +16,10 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @EntityListeners(AuditingEntityListener.class)
 @ToString(callSuper = true)
-public class Stock {
+
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn//기본값이 DTYPE
+public abstract class Stock {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -50,7 +53,7 @@ public class Stock {
     private Double twoHundredDayAverage;
 
     //현재 종가
-    private Double currentPrice ;
+    private Double currentPrice;
     //타겟 하이
     private Double targetHighPrice;
     //타겟 로우
@@ -58,3 +61,4 @@ public class Stock {
     // 타켓 중위값
     private Double targetMedianPrice;
 }
+

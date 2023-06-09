@@ -31,7 +31,7 @@ public class StockScheduler {
             try {
                 companyInfo = stockService.getYahooCompanyInfo(symbol.getSymbol());
                 targetInfo = stockService.getYahooFinancialData(symbol.getSymbol());
-                stockService.updateStock(symbol.getSymbol(), companyInfo , targetInfo);
+                stockService.updateStock(symbol.getSymbol(), companyInfo, targetInfo);
             } catch (Exception e) {
                 e.printStackTrace();
             }

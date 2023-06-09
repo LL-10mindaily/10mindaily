@@ -217,6 +217,7 @@
 //        return stockRepository.findBySymbol(symbol);
 //    }
 //}
+
 package com.ll.tenmindaily.boundedContext.investment.Stocks;
 
 import com.ll.tenmindaily.base.rsData.RsData;
@@ -286,10 +287,24 @@ public class StockService {
         Stock existingStock = stockRepository.findBySymbol(symbol);
 
         if (existingStock == null) {
-            Stock stock = yahooParseStockCompanyData(companyInfo, targetInfo);
+            Stock stock;
+
+            // Check the first character of the symbol
+            char firstChar = symbol.charAt(0);
+            if (Character.isLetter(firstChar)) {
+                stock = new AmericaStock();
+            } else if (Character.isDigit(firstChar)) {
+                stock = new KoreaStock();
+            } else {
+                // Handle invalid symbol
+                return RsData.failOf(0);
+            }
+
+            // Populate the stock attributes
+            stock = yahooParseStockCompanyData(companyInfo, targetInfo, stock);
 
             if (stock != null) {
-                stock.setSymbol(symbol);  // 종목 심볼 설정
+                stock.setSymbol(symbol);  // Set the symbol
                 stockRepository.save(stock);
                 return RsData.successOf(1);
             } else {
@@ -300,30 +315,8 @@ public class StockService {
         }
     }
 
-    // 0번 실패 코드, 1번 성공 코드, 2번 중복 코드
-    public RsData<Integer> saveTargetPriceData(String symbol, String targetInfo) {
-        Stock existingStock = stockRepository.findBySymbol(symbol);
-        if (existingStock == null){
-            return RsData.failOf(2);
-        } else {
-            Stock stock = yahooParseStockCompanyData(null, targetInfo);
-            if (stock != null) {
-                existingStock.setCurrentPrice(stock.getCurrentPrice());
-                existingStock.setTargetHighPrice(stock.getTargetHighPrice());
-                existingStock.setTargetLowPrice(stock.getTargetLowPrice());
-                existingStock.setTargetMedianPrice(stock.getTargetMedianPrice());
-                stockRepository.save(existingStock);
-                return RsData.successOf(1);
-            } else {
-                return RsData.failOf(0);
-            }
-        }
-    }
-
-    public Stock yahooParseStockCompanyData(String companyInfo, String targetInfo) {
+    public Stock yahooParseStockCompanyData(String companyInfo, String targetInfo, Stock stock) {
         try {
-            Stock stock = new Stock();
-
             if (companyInfo != null) {
                 JSONObject stockDataObject = new JSONObject(companyInfo);
                 JSONObject quoteSummaryObject = stockDataObject.getJSONObject("quoteSummary");
@@ -360,9 +353,9 @@ public class StockService {
                         stock.setExDividendDate(exDividendDate);
                     }
                     stock.setMarketCap(marketCap);
-                    if(Double.isNaN(forwardPE)){
+                    if (Double.isNaN(forwardPE)) {
                         stock.setForwardPE(null);
-                    }else {
+                    } else {
                         stock.setForwardPE(forwardPE);
                     }
 
@@ -401,15 +394,13 @@ public class StockService {
     }
 
     // 스케줄러에서 매일 아침 7시5분에 업데이트 해주는 메서드
-    public RsData<String> updateStock(String symbol, String companyInfo , String targetInfo) {
+    public RsData<String> updateStock(String symbol, String companyInfo, String targetInfo) {
         Stock existingStock = stockRepository.findBySymbol(symbol);
 
         if (existingStock != null) {
-            Stock updatedStock = yahooParseStockCompanyData(companyInfo , targetInfo);
+            Stock updatedStock = yahooParseStockCompanyData(companyInfo, targetInfo, existingStock);
 
             if (updatedStock != null) {
-                updatedStock.setId(existingStock.getId());  // 기존 주식 정보의 ID 설정
-                updatedStock.setSymbol(symbol);  // 종목 심볼 설정
                 stockRepository.save(updatedStock);
                 return RsData.successOf("종목이 업데이트되었습니다.");
             } else {

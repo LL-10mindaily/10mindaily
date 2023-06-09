@@ -110,6 +110,8 @@
 //    }
 //
 //}
+
+
 package com.ll.tenmindaily.boundedContext.investment.Stocks;
 
 import com.ll.tenmindaily.base.rsData.RsData;
@@ -140,6 +142,7 @@ public class StockController {
     public String showAmericaMain() {
         return "usr/Stock/AmericaStockHome";
     }
+
     @GetMapping("/korea")
     public String showKoreaMain() {
         return "usr/Stock/KoreaStockHome";
@@ -188,17 +191,16 @@ public class StockController {
         try {
             String companyInfo = stockService.getYahooCompanyInfo(symbol);
             String targetInfo = stockService.getYahooFinancialData(symbol);
-            RsData<Integer> result = stockService.saveStockCompanyData(symbol, companyInfo,targetInfo);
+            RsData<Integer> result = stockService.saveStockCompanyData(symbol, companyInfo, targetInfo);
 
             //성공코드 1번
             if (result.getData() == 1) {
                 return ResponseEntity.ok(result.getData());
                 //중복된 주식을 추가한경우
-            } else if (result.getData() == 2 ) {
+            } else if (result.getData() == 2) {
                 return ResponseEntity.ok(result.getData());
                 //존재 하지 않는 티커의 경우
-            }
-            else {
+            } else {
                 return ResponseEntity.badRequest().body(result.getData());
             }
         } catch (IOException e) {
