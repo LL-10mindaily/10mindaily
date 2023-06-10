@@ -71,8 +71,9 @@ public class StockController {
             }
             String companyInfo = stockService.getYahooCompanyInfo(symbol);
             String targetInfo = stockService.getYahooFinancialData(symbol);
+            String annInfo = stockService.getYahooAnalystPredictions(symbol);
 
-            RsData<Integer> result = stockService.saveStockCompanyData(symbol, companyInfo, targetInfo);
+            RsData<Integer> result = stockService.saveStockCompanyData(symbol, companyInfo, targetInfo, annInfo);
 
             // 성공코드 1번
             if (result.getData() == 1) {

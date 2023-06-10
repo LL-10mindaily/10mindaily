@@ -59,5 +59,17 @@ public class Stock {
     private Double targetLowPrice;
     // 타켓 중위값
     private Double targetMedianPrice;
+
+    //strongBuy
+    private Long strongBuy;
+    //Buy
+    private Long buy;
+    //Hold
+    private Long hold;
+    //Sell
+    private Long sell;
+    //Strong Sell
+    private Long strongSell;
 }
+
 

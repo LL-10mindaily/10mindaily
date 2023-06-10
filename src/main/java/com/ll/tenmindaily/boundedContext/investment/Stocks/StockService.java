@@ -63,14 +63,14 @@ public class StockService {
 
     // 컨트롤러에서 받아온 티커를 DB에 저장하는 메서드
     // 0번 실패 코드, 1번 성공 코드, 2번 중복 코드
-    public RsData<Integer> saveStockCompanyData(String symbol, String companyInfo, String targetInfo) {
+    public RsData<Integer> saveStockCompanyData(String symbol, String companyInfo, String targetInfo, String annInfo) {
         Stock existingStock = stockRepository.findBySymbol(symbol);
 
         if (existingStock != null) {
             return RsData.failOf(2);  // 중복된 주식을 추가한 경우
         }
 
-        Stock stock = yahooParseStockCompanyData(companyInfo, targetInfo);
+        Stock stock = yahooParseStockCompanyData(companyInfo, targetInfo, annInfo);
         if (stock == null) {
             return RsData.failOf(0);  // 주식 정보 파싱에 실패한 경우
         }
@@ -82,7 +82,7 @@ public class StockService {
         return RsData.successOf(1);  // 주식 추가 성공
     }
 
-    public Stock yahooParseStockCompanyData(String companyInfo, String targetInfo) {
+    public Stock yahooParseStockCompanyData(String companyInfo, String targetInfo, String annInfo) {
         try {
             Stock stock = new Stock();
 
@@ -112,22 +112,11 @@ public class StockService {
 
                     // Stock 객체 설정
                     stock.setPreviousClose(previousClose);
-                    if (Double.isNaN(dividendRate)) {
-                        stock.setDividendRate(null);
-                        stock.setDividendYield(null);
-                        stock.setExDividendDate(null);
-                    } else {
-                        stock.setDividendRate(dividendRate);
-                        stock.setDividendYield(dividendYield);
-                        stock.setExDividendDate(exDividendDate);
-                    }
+                    stock.setDividendRate(dividendRate);
+                    stock.setDividendYield(dividendYield);
+                    stock.setExDividendDate(exDividendDate);
                     stock.setMarketCap(marketCap);
-                    if (Double.isNaN(forwardPE)) {
-                        stock.setForwardPE(null);
-                    } else {
-                        stock.setForwardPE(forwardPE);
-                    }
-
+                    stock.setForwardPE(forwardPE);
                     stock.setFiftyTwoWeekLow(fiftyTwoWeekLow);
                     stock.setFiftyTwoWeekHigh(fiftyTwoWeekHigh);
                     stock.setFiftyDayAverage(fiftyDayAverage);
@@ -155,6 +144,40 @@ public class StockService {
                 }
             }
 
+            if (annInfo != null) {
+                JSONObject stockDataObject = new JSONObject(annInfo);
+                JSONObject quoteSummaryObject = stockDataObject.getJSONObject("quoteSummary");
+                JSONArray resultArray = quoteSummaryObject.getJSONArray("result");
+
+                if (resultArray.length() > 0) {
+                    JSONObject recommendationTrendObject = resultArray.getJSONObject(0).getJSONObject("recommendationTrend");
+                    JSONArray trendArray = recommendationTrendObject.getJSONArray("trend");
+
+                    for (int i = 0; i < trendArray.length(); i++) {
+                        JSONObject trendObject = trendArray.getJSONObject(i);
+
+                        String period = trendObject.getString("period");
+
+                        if (period.equals("0m")) {
+                            Long strongBuy = trendObject.getLong("strongBuy");
+                            Long buy = trendObject.getLong("buy");
+                            Long hold = trendObject.getLong("hold");
+                            Long sell = trendObject.getLong("sell");
+                            Long strongSell = trendObject.getLong("strongSell");
+
+                            stock.setStrongBuy(strongBuy);
+                            stock.setBuy(buy);
+                            stock.setHold(hold);
+                            stock.setSell(sell);
+                            stock.setStrongSell(strongSell);
+
+                            System.out.println("Period: " + period);
+                            break;  // period가 "0m"인 경우에 한 번만 처리하고 루프를 종료합니다.
+                        }
+                    }
+                }
+            }
+
             return stock;
         } catch (JSONException e) {
             e.printStackTrace();
@@ -162,12 +185,13 @@ public class StockService {
         return null;
     }
 
+
     // 스케줄러에서 매일 아침 7시5분에 업데이트 해주는 메서드
-    public RsData<String> updateStock(String symbol, String companyInfo, String targetInfo) {
+    public RsData<String> updateStock(String symbol, String companyInfo, String targetInfo, String annInfo) {
         Stock existingStock = stockRepository.findBySymbol(symbol);
 
         if (existingStock != null) {
-            Stock updatedStock = yahooParseStockCompanyData(companyInfo, targetInfo);
+            Stock updatedStock = yahooParseStockCompanyData(companyInfo, targetInfo, annInfo);
 
             if (updatedStock != null) {
                 updatedStock.setId(existingStock.getId());  // 기존 주식 정보의 ID 설정
@@ -182,16 +206,16 @@ public class StockService {
         }
     }
 
-    //원하는 종목을 삭제해주는 메서드
-    public boolean deleteStockData(String symbol) {
-        Stock existingStock = stockRepository.findBySymbol(symbol);
-        if (existingStock == null) {
-            return false;
-        } else {
-            stockRepository.delete(existingStock);
-            return true;
-        }
-    }
+//    //원하는 종목을 삭제해주는 메서드
+//    public boolean deleteStockData(String symbol) {
+//        Stock existingStock = stockRepository.findBySymbol(symbol);
+//        if (existingStock == null) {
+//            return false;
+//        } else {
+//            stockRepository.delete(existingStock);
+//            return true;
+//        }
+//    }
 
 
     public Stock getStockBySymbol(String symbol) {

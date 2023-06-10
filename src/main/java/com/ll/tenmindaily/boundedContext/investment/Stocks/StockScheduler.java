@@ -28,10 +28,13 @@ public class StockScheduler {
         for (Stock symbol : symbols) {
             String companyInfo;
             String targetInfo;
+            String annInfo;
+
             try {
                 companyInfo = stockService.getYahooCompanyInfo(symbol.getSymbol());
                 targetInfo = stockService.getYahooFinancialData(symbol.getSymbol());
-                stockService.updateStock(symbol.getSymbol(), companyInfo, targetInfo);
+                annInfo = stockService.getYahooAnalystPredictions(symbol.getSymbol());
+                stockService.updateStock(symbol.getSymbol(), companyInfo, targetInfo, annInfo);
             } catch (Exception e) {
                 e.printStackTrace();
             }
