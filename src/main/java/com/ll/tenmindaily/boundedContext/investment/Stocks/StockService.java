@@ -103,7 +103,9 @@ public class StockService {
                     String exDividendDate = summaryDetailObject.getJSONObject("exDividendDate").optString("fmt");
 
                     double marketCap = summaryDetailObject.getJSONObject("marketCap").getDouble("raw");
-                    double forwardPE = summaryDetailObject.getJSONObject("forwardPE").optDouble("raw");
+
+                    Double forwardPE = summaryDetailObject.getJSONObject("forwardPE").optDouble("raw");
+
                     double fiftyTwoWeekLow = summaryDetailObject.getJSONObject("fiftyTwoWeekLow").getDouble("raw");
                     double fiftyTwoWeekHigh = summaryDetailObject.getJSONObject("fiftyTwoWeekHigh").getDouble("raw");
                     double fiftyDayAverage = summaryDetailObject.getJSONObject("fiftyDayAverage").getDouble("raw");
@@ -112,11 +114,24 @@ public class StockService {
 
                     // Stock 객체 설정
                     stock.setPreviousClose(previousClose);
-                    stock.setDividendRate(dividendRate);
-                    stock.setDividendYield(dividendYield);
-                    stock.setExDividendDate(exDividendDate);
+                    if (dividendRate.isNaN()) {
+                        stock.setDividendRate(null);
+                        stock.setDividendYield(null);
+                        stock.setExDividendDate(null);
+
+                    } else {
+                        stock.setDividendRate(dividendRate);
+                        stock.setDividendYield(dividendYield);
+                        stock.setExDividendDate(exDividendDate);
+                    }
+
+                    if (forwardPE.isNaN()) {
+                        stock.setForwardPE(null);
+                    } else {
+                        stock.setForwardPE(forwardPE);
+                    }
+
                     stock.setMarketCap(marketCap);
-                    stock.setForwardPE(forwardPE);
                     stock.setFiftyTwoWeekLow(fiftyTwoWeekLow);
                     stock.setFiftyTwoWeekHigh(fiftyTwoWeekHigh);
                     stock.setFiftyDayAverage(fiftyDayAverage);
@@ -153,27 +168,23 @@ public class StockService {
                     JSONObject recommendationTrendObject = resultArray.getJSONObject(0).getJSONObject("recommendationTrend");
                     JSONArray trendArray = recommendationTrendObject.getJSONArray("trend");
 
-                    for (int i = 0; i < trendArray.length(); i++) {
-                        JSONObject trendObject = trendArray.getJSONObject(i);
+                    JSONObject trendObject = trendArray.getJSONObject(0);
+                    String period = trendObject.getString("period");
 
-                        String period = trendObject.getString("period");
+                    if (period.equals("0m")) {
+                        long strongBuy = trendObject.getLong("strongBuy");
+                        long buy = trendObject.getLong("buy");
+                        long hold = trendObject.getLong("hold");
+                        long sell = trendObject.getLong("sell");
+                        long strongSell = trendObject.getLong("strongSell");
 
-                        if (period.equals("0m")) {
-                            Long strongBuy = trendObject.getLong("strongBuy");
-                            Long buy = trendObject.getLong("buy");
-                            Long hold = trendObject.getLong("hold");
-                            Long sell = trendObject.getLong("sell");
-                            Long strongSell = trendObject.getLong("strongSell");
+                        stock.setStrongBuy(strongBuy);
+                        stock.setBuy(buy);
+                        stock.setHold(hold);
+                        stock.setSell(sell);
+                        stock.setStrongSell(strongSell);
 
-                            stock.setStrongBuy(strongBuy);
-                            stock.setBuy(buy);
-                            stock.setHold(hold);
-                            stock.setSell(sell);
-                            stock.setStrongSell(strongSell);
-
-                            System.out.println("Period: " + period);
-                            break;  // period가 "0m"인 경우에 한 번만 처리하고 루프를 종료합니다.
-                        }
+                        System.out.println("Period: " + period);
                     }
                 }
             }

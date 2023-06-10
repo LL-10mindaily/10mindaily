@@ -60,6 +60,8 @@ public class Stock {
     // 타켓 중위값
     private Double targetMedianPrice;
 
+    //period
+    private String period;
     //strongBuy
     private Long strongBuy;
     //Buy
