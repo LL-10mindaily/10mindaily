@@ -26,6 +26,8 @@ public class Stock {
     private LocalDateTime createDate;
     //티커
     private String symbol;
+    //한국 시장 종목은 0, 미국시장일때는 1
+    private Integer national;
     //장 종가
     private Double previousClose;
     //주당 배당금

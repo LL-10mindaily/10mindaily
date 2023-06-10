@@ -66,19 +66,20 @@ public class StockService {
     public RsData<Integer> saveStockCompanyData(String symbol, String companyInfo, String targetInfo) {
         Stock existingStock = stockRepository.findBySymbol(symbol);
 
-        if (existingStock == null) {
-            Stock stock = yahooParseStockCompanyData(companyInfo, targetInfo);
-
-            if (stock != null) {
-                stock.setSymbol(symbol);  // 종목 심볼 설정
-                stockRepository.save(stock);
-                return RsData.successOf(1);
-            } else {
-                return RsData.failOf(0);
-            }
-        } else {
-            return RsData.failOf(2);
+        if (existingStock != null) {
+            return RsData.failOf(2);  // 중복된 주식을 추가한 경우
         }
+
+        Stock stock = yahooParseStockCompanyData(companyInfo, targetInfo);
+        if (stock == null) {
+            return RsData.failOf(0);  // 주식 정보 파싱에 실패한 경우
+        }
+
+        stock.setSymbol(symbol);  // 종목 심볼 설정
+        stock.setNational(symbol.endsWith(".ks") ? 0 : 1);  // 국내 종목 여부 설정
+        stockRepository.save(stock);
+
+        return RsData.successOf(1);  // 주식 추가 성공
     }
 
     public Stock yahooParseStockCompanyData(String companyInfo, String targetInfo) {
