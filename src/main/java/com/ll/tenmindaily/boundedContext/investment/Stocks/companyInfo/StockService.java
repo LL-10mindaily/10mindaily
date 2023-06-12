@@ -1,4 +1,4 @@
-package com.ll.tenmindaily.boundedContext.investment.Stocks;
+package com.ll.tenmindaily.boundedContext.investment.Stocks.companyInfo;
 
 import com.ll.tenmindaily.base.rsData.RsData;
 import org.json.JSONArray;
@@ -6,10 +6,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 
 import java.io.IOException;
 import java.util.List;
@@ -236,40 +232,9 @@ public class StockService {
     public Stock getStockBySymbol(String symbol) {
         return stockRepository.findBySymbol(symbol);
     }
+
     public List<Stock> getStockList() {
         return stockRepository.findAll();
     }
 
-    public String getStockNews(String symbol) {
-        StringBuilder result = new StringBuilder();
-        try {
-            Document doc = Jsoup.connect("https://search.naver.com/search.naver?query=" + symbol + "&where=news").get();
-            Elements newsItems = doc.select("li.bx");
-            for (Element item : newsItems) {
-                Element pressElement = item.selectFirst(".info_group .info.press");
-                if (pressElement == null) {
-                    continue;
-                }
-                String pressName = pressElement.text();
-                Element titleElement = item.selectFirst("a.news_tit");
-                String newsTitle = titleElement != null ? titleElement.text() : "";
-                Element descriptionElement = item.selectFirst(".news_dsc .dsc_wrap");
-                String description = descriptionElement != null ? descriptionElement.text() : "";
-                Element urlElement = item.selectFirst("a.news_tit");
-                String url = urlElement != null ? urlElement.attr("href") : "";
-
-                if (pressName.isEmpty() || newsTitle.isEmpty() || url.isEmpty() || description.isEmpty()) {
-                    continue;
-                }
-                result.append("<div class=\"news-item\">");
-                result.append("<p class=\"press-name\">").append(pressName).append("</p>");
-                result.append("<h3 class=\"news-title\">").append("<a href=\"" + url + "\" target=\"_blank\">" + newsTitle + "</a>").append("</h3>");
-                result.append("<p class=\"description\">").append(description).append("</p>");
-                result.append("</div>");
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return result.toString();
-    }
 }

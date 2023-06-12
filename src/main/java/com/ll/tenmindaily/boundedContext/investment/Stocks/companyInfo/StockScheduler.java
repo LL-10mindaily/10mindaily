@@ -1,4 +1,4 @@
-package com.ll.tenmindaily.boundedContext.investment.Stocks;
+package com.ll.tenmindaily.boundedContext.investment.Stocks.companyInfo;
 
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;

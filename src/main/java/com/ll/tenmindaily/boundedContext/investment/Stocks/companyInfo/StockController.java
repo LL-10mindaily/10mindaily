@@ -1,4 +1,4 @@
-package com.ll.tenmindaily.boundedContext.investment.Stocks;
+package com.ll.tenmindaily.boundedContext.investment.Stocks.companyInfo;
 
 import com.ll.tenmindaily.base.rsData.RsData;
 import org.springframework.http.HttpStatus;
@@ -111,15 +111,6 @@ public class StockController {
     public ResponseEntity<List<Stock>> getStockList() {
         List<Stock> stockList = stockService.getStockList();
         return ResponseEntity.ok(stockList);
-    }
-
-    //뉴스 정보
-    @GetMapping("/news/{symbol}")
-    public String showStockNews(@PathVariable String symbol, Model model) {
-        String news = stockService.getStockNews(symbol);
-        model.addAttribute("symbol", symbol);
-        model.addAttribute("news", news);
-        return "usr/Stock/stockNews";
     }
 }
 

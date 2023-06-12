@@ -2,6 +2,15 @@
 <html>
 <head>
     <title>주식 정보</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#newsButton').click(function () {
+                var symbol = $('#symbol').text();
+                window.location.href = '/stocks/news/' + symbol;
+            });
+        });
+    </script>
 </head>
 <body>
 <h1>주식 정보</h1>
@@ -75,5 +84,8 @@
         <td th:text="${stock.targetMedianPrice}"></td>
     </tr>
 </table>
+<button id="newsButton">뉴스 보기</button>
+
+<span id="symbol" th:text="${stock.symbol}" style="display:none"></span>
 </body>
 </html>

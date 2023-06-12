@@ -1,4 +1,4 @@
-package com.ll.tenmindaily.boundedContext.investment.Stocks;
+package com.ll.tenmindaily.boundedContext.investment.Stocks.companyInfo;
 
 import static com.querydsl.core.types.PathMetadataFactory.*;
 
@@ -15,7 +15,7 @@ import com.querydsl.core.types.Path;
 @Generated("com.querydsl.codegen.DefaultEntitySerializer")
 public class QStock extends EntityPathBase<Stock> {
 
-    private static final long serialVersionUID = -1548808913L;
+    private static final long serialVersionUID = -799181108L;
 
     public static final QStock stock = new QStock("stock");
 

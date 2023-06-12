@@ -1,4 +1,4 @@
-package com.ll.tenmindaily.boundedContext.investment.Stocks;
+package com.ll.tenmindaily.boundedContext.investment.Stocks.companyInfo;
 
 import jakarta.persistence.*;
 import lombok.Getter;
