@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock News - ${symbol}</title>
+    <style>
+        .news-item {
+            margin-bottom: 20px;
+        }
+        .press-name {
+            font-weight: bold;
+        }
+        .news-title {
+            margin-top: 5px;
+            margin-bottom: 5px; /* 추가된 부분 */
+        }
+        .description {
+            margin-top: 5px;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+<h1>Stock News - ${symbol}</h1>
+<div th:utext="${news}"></div>
+</body>

@@ -112,5 +112,14 @@ public class StockController {
         List<Stock> stockList = stockService.getStockList();
         return ResponseEntity.ok(stockList);
     }
+
+    //뉴스 정보
+    @GetMapping("/news/{symbol}")
+    public String showStockNews(@PathVariable String symbol, Model model) {
+        String news = stockService.getStockNews(symbol);
+        model.addAttribute("symbol", symbol);
+        model.addAttribute("news", news);
+        return "usr/Stock/stockNews";
+    }
 }
 
