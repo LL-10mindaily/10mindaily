@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import java.io.IOException;
+import java.util.List;
 
 @Service
 public class StockService {
@@ -196,7 +197,6 @@ public class StockService {
         return null;
     }
 
-
     // 스케줄러에서 매일 아침 7시5분에 업데이트 해주는 메서드
     public RsData<String> updateStock(String symbol, String companyInfo, String targetInfo, String annInfo) {
         Stock existingStock = stockRepository.findBySymbol(symbol);
@@ -231,5 +231,8 @@ public class StockService {
 
     public Stock getStockBySymbol(String symbol) {
         return stockRepository.findBySymbol(symbol);
+    }
+    public List<Stock> getStockList() {
+        return stockRepository.findAll();
     }
 }

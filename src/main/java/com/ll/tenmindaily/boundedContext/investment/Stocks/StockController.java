@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.List;
 
 @Controller
 @RequestMapping("/stocks")
@@ -93,7 +94,6 @@ public class StockController {
         }
     }
 
-
     //실제로 DB에 있는 내용을 보여주는메서드
     @GetMapping("/show/{symbol}")
     public String showStockInfo(@PathVariable String symbol, Model model) {
@@ -106,5 +106,11 @@ public class StockController {
         }
     }
 
+    @GetMapping("/list")
+    @ResponseBody
+    public ResponseEntity<List<Stock>> getStockList() {
+        List<Stock> stockList = stockService.getStockList();
+        return ResponseEntity.ok(stockList);
+    }
 }
 
