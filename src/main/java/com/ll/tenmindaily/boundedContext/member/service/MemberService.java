@@ -59,8 +59,18 @@ public class MemberService {
     public Optional<Member> findByUsername(String username) {
         return memberRepository.findByUsername(username);
     }
-    private Optional<Member> findByUserId(String userId) {
+
+    public Optional<Member> findByUserId(String userId) {
         return memberRepository.findByUserId(userId);
+    }
+
+    public Member getUser(String userId) {
+        Optional<Member> member = findByUserId(userId);
+        if (member.isPresent()) {
+            return member.get();
+        } else {
+            throw new DataNotFoundException("siteuser not found");
+        }
     }
 
     @Transactional
@@ -81,7 +91,7 @@ public class MemberService {
             }
             case "KAKAO" -> {
                 username = ((Map<String, String>) oAuth2User.getAttribute("properties")).get("nickname");
-                email = ((Map<String, String>)oAuth2User.getAttribute("kakao_account")).get("email");
+                email = ((Map<String, String>) oAuth2User.getAttribute("kakao_account")).get("email");
 
                 if (!((Map<String, Map<String, Object>>) oAuth2User.getAttribute("kakao_account")).get("profile").get("is_default_image").equals("true")) {
                     profileImage = ((Map<String, String>) oAuth2User.getAttribute("properties")).get("profile_image");
@@ -100,6 +110,7 @@ public class MemberService {
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     public Member getUser(String username) {
         Optional<Member> member = this.memberRepository.findByUserId(username);
         if (member.isPresent()) {
@@ -114,5 +125,15 @@ public class MemberService {
 >>>>>>> 3630690 (Nagiltae (#9))
             throw new DataNotFoundException("siteuser not found");
         }
+=======
+    @Transactional
+    public RsData<Member> modify(Member actor, MemberController.JoinForm joinForm) {
+        actor.setUsername(joinForm.getUsername());
+        actor.setNickname(joinForm.getNickname());
+        actor.setEmail(joinForm.getEmail());
+
+        return RsData.of("S-1","성공적으로 수정되었습니다.", memberRepository.save(actor));
+>>>>>>> 15b2d65 (Shinjaean: 마이페이지 수정 관련 UI 및 기능 구현 (#11))
     }
+
 }

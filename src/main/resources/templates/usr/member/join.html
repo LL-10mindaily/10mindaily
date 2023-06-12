@@ -99,11 +99,16 @@
         }
     </script>
 
-    <h1>회원가입</h1>
+    <h1 class="pt-2">회원가입</h1>
     <hr>
+<<<<<<< HEAD
     <form th:action="@{/usr/member/join}" method="POST" class="flex flex-col justify-center"
           onsubmit="JoinForm__submit(this); return false;">
         <table class="">
+=======
+    <form th:action="@{/usr/member/join}" method="POST" class="flex flex-col justify-center" onsubmit="JoinForm__submit(this); return false;">
+        <table class="table">
+>>>>>>> 15b2d65 (Shinjaean: 마이페이지 수정 관련 UI 및 기능 구현 (#11))
             <tr class="gap-5">
                 <td class="text-right pr-4">
                     <label for="username">이름</label>
