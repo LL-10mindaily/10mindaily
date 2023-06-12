@@ -217,18 +217,6 @@ public class StockService {
         }
     }
 
-//    //원하는 종목을 삭제해주는 메서드
-//    public boolean deleteStockData(String symbol) {
-//        Stock existingStock = stockRepository.findBySymbol(symbol);
-//        if (existingStock == null) {
-//            return false;
-//        } else {
-//            stockRepository.delete(existingStock);
-//            return true;
-//        }
-//    }
-
-
     public Stock getStockBySymbol(String symbol) {
         return stockRepository.findBySymbol(symbol);
     }
