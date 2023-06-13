@@ -20,12 +20,13 @@ public class Stock {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    //한국 미국 기업명
+    private String name;
     //스케줄러의 기준 시간이 된다.
     @CreatedDate
     private LocalDateTime createDate;
     //티커
-    private String symbol;
+    private String ticker;
     //한국 시장 종목은 0, 미국시장일때는 1
     private Integer national;
     //장 종가

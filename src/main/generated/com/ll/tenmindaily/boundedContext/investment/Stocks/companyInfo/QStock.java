@@ -45,6 +45,8 @@ public class QStock extends EntityPathBase<Stock> {
 
     public final NumberPath<Double> marketCap = createNumber("marketCap", Double.class);
 
+    public final StringPath name = createString("name");
+
     public final NumberPath<Integer> national = createNumber("national", Integer.class);
 
     public final StringPath period = createString("period");
@@ -59,13 +61,13 @@ public class QStock extends EntityPathBase<Stock> {
 
     public final NumberPath<Long> strongSell = createNumber("strongSell", Long.class);
 
-    public final StringPath symbol = createString("symbol");
-
     public final NumberPath<Double> targetHighPrice = createNumber("targetHighPrice", Double.class);
 
     public final NumberPath<Double> targetLowPrice = createNumber("targetLowPrice", Double.class);
 
     public final NumberPath<Double> targetMedianPrice = createNumber("targetMedianPrice", Double.class);
+
+    public final StringPath ticker = createString("ticker");
 
     public final NumberPath<Double> twoHundredDayAverage = createNumber("twoHundredDayAverage", Double.class);
 

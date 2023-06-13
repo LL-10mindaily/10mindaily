@@ -76,7 +76,7 @@ public class StockService {
             return RsData.failOf(0);  // 주식 정보 파싱에 실패한 경우
         }
 
-        stock.setSymbol(symbol);  // 종목 심볼 설정
+        stock.setTicker(symbol);  // 종목 심볼 설정
         stock.setNational(symbol.endsWith(".ks") ? 0 : 1);  // 국내 종목 여부 설정
         stockRepository.save(stock);
 
@@ -206,7 +206,7 @@ public class StockService {
 
             if (updatedStock != null) {
                 updatedStock.setId(existingStock.getId());  // 기존 주식 정보의 ID 설정
-                updatedStock.setSymbol(symbol);  // 종목 심볼 설정
+                updatedStock.setTicker(symbol);  // 종목 심볼 설정
                 stockRepository.save(updatedStock);
                 return RsData.successOf("종목이 업데이트되었습니다.");
             } else {
