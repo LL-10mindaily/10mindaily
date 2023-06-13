@@ -25,7 +25,7 @@
     </style>
 </head>
 <body>
-<h1>Stock News - ${symbol}</h1>
+<h1>Stock News ${stock.symbol}</h1>
 <div th:each="newsItem : ${newsItems}">
     <div class="news-item">
         <p class="press-name" th:text="${newsItem.pressName}"></p>
