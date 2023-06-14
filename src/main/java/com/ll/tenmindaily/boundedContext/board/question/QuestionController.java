@@ -56,6 +56,8 @@ public class QuestionController {
         return "usr/board/question_detail";
     }
 
+
+
     //매개변수로 바인딩한 객체는 Model 객체로 전달하지 않아도 템플릿에서 사용이 가능=QuestionForm
     @PreAuthorize("isAuthenticated()") //로그인이 필요한 메서드
     @GetMapping("/create")
@@ -134,5 +136,6 @@ public class QuestionController {
         this.questionService.vote(question, member);//------ 유저 객체 구현후 추후 수정 -------
         return String.format("redirect:/question/detail/%s", id);
     }
+
 
 }
