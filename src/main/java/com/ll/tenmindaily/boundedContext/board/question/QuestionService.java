@@ -24,18 +24,6 @@ public class QuestionService {
 
     private final QuestionRepository questionRepository;
 
-    /* public Page<Question> getList(int page, String kw, String typeName) {
-        List<Sort.Order> sorts = new ArrayList<>(); //정렬을 위한 리스트
-        sorts.add(Sort.Order.desc("createDate")); //역순 정렬
-
-        Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts));
-        //page 조회할 페이지의 번호, 10:한 페이지에 보일게시물의 갯수
-        //역순으로 조회하기 위해서는 PageRequest.of 메서드의 세번째 파라미터로 Sort 객체를 전달
-        Specification<Question> spec = search(kw, typeName);
-        return this.questionRepository.findAll(spec, pageable);
-        //return this.questionRepository.findAllByKeyword(kw, pageable);
-    }*/
-
     public Page<Question> getList(int page, String kw) {
         List<Sort.Order> sorts = new ArrayList<>(); //정렬을 위한 리스트
         sorts.add(Sort.Order.desc("createDate")); //역순 정렬
