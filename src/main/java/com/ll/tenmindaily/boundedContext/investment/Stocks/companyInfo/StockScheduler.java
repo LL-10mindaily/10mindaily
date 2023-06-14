@@ -25,7 +25,7 @@ public class StockScheduler {
         this.stockService = stockService;
     }
 
-    @Scheduled(fixedDelay = 10000) // 10초마다 실행
+//    @Scheduled(fixedDelay = 1000000) // 1000초마다 실행
     public void updateStockData() throws IOException {
 
         // 미국 주식 데이터 가져오기

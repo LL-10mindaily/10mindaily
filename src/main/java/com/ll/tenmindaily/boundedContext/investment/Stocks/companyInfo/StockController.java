@@ -20,10 +20,16 @@ public class StockController {
         this.stockService = stockService;
     }
 
+    @GetMapping("/add")
+    public String addMain() {
+        return "usr/Stock/StockAddHome";
+    }
+
     @GetMapping("/")
     public String showMain() {
         return "usr/Stock/StockHome";
     }
+
 
     //야후 파이낸스 회사정보 볼 수 있도록
     @GetMapping("/yahoo/company/{symbol}")
@@ -86,8 +92,8 @@ public class StockController {
     }
 
     //실제로 DB에 있는 내용을 보여주는메서드
-    @GetMapping("/show/{symbol}")
-    public String showStockInfo(@PathVariable String symbol, Model model) {
+    @GetMapping("/show")
+    public String showStockInfo(@RequestParam String symbol, Model model) {
         Stock stock = stockService.getStockBySymbol(symbol);
         if (stock != null) {
             model.addAttribute("stock", stock);
@@ -104,4 +110,3 @@ public class StockController {
         return ResponseEntity.ok(stockList);
     }
 }
-

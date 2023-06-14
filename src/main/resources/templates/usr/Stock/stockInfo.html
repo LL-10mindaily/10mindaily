@@ -83,6 +83,31 @@
         <td>애널리스트들의 평균가</td>
         <td th:text="${stock.targetMedianPrice}"></td>
     </tr>
+
+    <tr>
+        <td>매수 강력 추천</td>
+        <td th:text="${stock.strongBuy}"></td>
+    </tr>
+
+    <tr>
+        <td>매수 추천</td>
+        <td th:text="${stock.buy}"></td>
+    </tr>
+
+    <tr>
+        <td>중립</td>
+        <td th:text="${stock.hold}"></td>
+    </tr>
+
+    <tr>
+        <td>매도 추천</td>
+        <td th:text="${stock.sell}"></td>
+    </tr>
+
+    <tr>
+        <td>매도 강력 추천</td>
+        <td th:text="${stock.strongSell}"></td>
+    </tr>
 </table>
 <button id="newsButton">뉴스 보기</button>
 
