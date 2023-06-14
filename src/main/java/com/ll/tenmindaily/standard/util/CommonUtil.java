@@ -15,8 +15,4 @@ public class CommonUtil {
         HtmlRenderer renderer = HtmlRenderer.builder().build();
         return renderer.render(document);
     }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 739f0e5 (style: coinNews.html 마무리 ui작업 완료)

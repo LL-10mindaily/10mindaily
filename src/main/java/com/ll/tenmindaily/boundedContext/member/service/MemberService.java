@@ -118,25 +118,4 @@ public class MemberService {
         return RsData.of("S-1","성공적으로 수정되었습니다.", memberRepository.save(actor));
     }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 }
-=======
-=======
-    public Member getUser(String username){
-=======
-    public Member getUser(String username) {
->>>>>>> 202c0f5 (style: coinNews.html 마무리 ui작업 완료)
-        Optional<Member> member = this.memberRepository.findByUserId(username);
-        if (member.isPresent()) {
-            return member.get();
-        } else {
-            throw new DataNotFoundException("siteuser not found");
-        }
-    }
->>>>>>> 50c3a61 (Nagiltae (#9))
-}
->>>>>>> 546bfbb (Nagiltae (#9))
-=======
-}
->>>>>>> 122bf4c (fix:pull request)

@@ -41,19 +41,7 @@ public class Rq {
 
         // 데이터가 없는지 체크
         if (member == null) {
-<<<<<<< HEAD
-<<<<<<< HEAD
-            member = memberService.findByUsername(user.getUsername()).orElseThrow();
-=======
-<<<<<<< HEAD
             member = memberService.findByUserId(user.getUsername()).orElseThrow();
-=======
-            member = memberService.findByUsername(user.getUsername()).orElseThrow();
->>>>>>> 50c3a61 (Nagiltae (#9))
->>>>>>> 546bfbb (Nagiltae (#9))
-=======
-            member = memberService.findByUserId(user.getUsername()).orElseThrow();
->>>>>>> 122bf4c (fix:pull request)
         }
 
         return member;
