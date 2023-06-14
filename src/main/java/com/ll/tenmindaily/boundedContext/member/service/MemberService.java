@@ -60,8 +60,6 @@ public class MemberService {
         return memberRepository.findByUsername(username);
     }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
     public Optional<Member> findByUserId(String userId) {
         return memberRepository.findByUserId(userId);
     }
@@ -121,6 +119,7 @@ public class MemberService {
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 }
 =======
 =======
@@ -138,3 +137,6 @@ public class MemberService {
 >>>>>>> 50c3a61 (Nagiltae (#9))
 }
 >>>>>>> 546bfbb (Nagiltae (#9))
+=======
+}
+>>>>>>> 122bf4c (fix:pull request)

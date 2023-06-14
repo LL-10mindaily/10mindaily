@@ -3,10 +3,7 @@ server:
 spring:
   profiles:
     active: dev
-<<<<<<< HEAD
     include: secret
-=======
->>>>>>> 50c3a61 (Nagiltae (#9))
   thymeleaf:
     cache: false
     prefix: file:src/main/resources/templates/
