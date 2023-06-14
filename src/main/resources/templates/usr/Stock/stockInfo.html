@@ -21,7 +21,7 @@
     </tr>
     <tr>
         <td>티커</td>
-        <td th:text="${stock.getTicker}"></td>
+        <td th:text="${stock.getSymbol}"></td>
     </tr>
     <tr>
         <td>전일 종가</td>
@@ -86,6 +86,6 @@
 </table>
 <button id="newsButton">뉴스 보기</button>
 
-<span id="symbol" th:text="${stock.getTicker}" style="display:none"></span>
+<span id="symbol" th:text="${stock.getSymbol}" style="display:none"></span>
 </body>
 </html>

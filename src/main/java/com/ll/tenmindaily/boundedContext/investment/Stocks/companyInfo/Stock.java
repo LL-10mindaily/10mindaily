@@ -26,7 +26,7 @@ public class Stock {
     @CreatedDate
     private LocalDateTime createDate;
     //티커
-    private String ticker;
+    private String symbol;
     //한국 시장 종목은 0, 미국시장일때는 1
     private Integer national;
     //장 종가
@@ -60,9 +60,6 @@ public class Stock {
     private Double targetLowPrice;
     // 타켓 중위값
     private Double targetMedianPrice;
-
-    //period
-    private String period;
     //strongBuy
     private Long strongBuy;
     //Buy

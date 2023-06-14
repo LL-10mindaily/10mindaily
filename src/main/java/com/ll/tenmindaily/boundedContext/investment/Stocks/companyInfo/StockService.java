@@ -6,6 +6,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.web.reactive.function.client.WebClientResponseException;
+import reactor.core.publisher.Mono;
 
 import java.io.IOException;
 import java.util.List;
@@ -33,6 +35,7 @@ public class StockService {
                 .uri(url)
                 .retrieve()
                 .bodyToMono(String.class)
+                .onErrorResume(WebClientResponseException.NotFound.class, e -> Mono.empty()) // 에러가 404일 경우에는 empty Mono 반환
                 .block();
     }
 
@@ -46,6 +49,7 @@ public class StockService {
                 .uri(url)
                 .retrieve()
                 .bodyToMono(String.class)
+                .onErrorResume(WebClientResponseException.NotFound.class, e -> Mono.empty()) // 에러가 404일 경우에는 empty Mono 반환
                 .block();
     }
 
@@ -59,8 +63,10 @@ public class StockService {
                 .uri(url)
                 .retrieve()
                 .bodyToMono(String.class)
+                .onErrorResume(WebClientResponseException.NotFound.class, e -> Mono.empty()) // 에러가 404일 경우에는 empty Mono 반환
                 .block();
     }
+
 
     // 컨트롤러에서 받아온 티커를 DB에 저장하는 메서드
     // 0번 실패 코드, 1번 성공 코드, 2번 중복 코드
@@ -76,8 +82,8 @@ public class StockService {
             return RsData.failOf(0);  // 주식 정보 파싱에 실패한 경우
         }
 
-        stock.setTicker(symbol);  // 종목 심볼 설정
-        stock.setNational(symbol.endsWith(".ks") ? 0 : 1);  // 국내 종목 여부 설정
+        stock.setSymbol(symbol);  // 종목 심볼 설정
+        stock.setNational(symbol.endsWith(".ks") || symbol.endsWith(".kq") ? 0 : 1); //코스피 코스닥은 한국 주식으로
         stockRepository.save(stock);
 
         return RsData.successOf(1);  // 주식 추가 성공
@@ -92,7 +98,7 @@ public class StockService {
                 JSONObject quoteSummaryObject = stockDataObject.getJSONObject("quoteSummary");
                 JSONArray resultArray = quoteSummaryObject.getJSONArray("result");
 
-                if (resultArray.length() > 0) {
+                if (resultArray != null && !resultArray.isNull(0)) {
                     JSONObject summaryDetailObject = resultArray.getJSONObject(0).getJSONObject("summaryDetail");
 
                     // 필요한 데이터 추출
@@ -102,15 +108,16 @@ public class StockService {
                     Double dividendRate = summaryDetailObject.getJSONObject("dividendRate").optDouble("raw");
                     Double dividendYield = summaryDetailObject.getJSONObject("dividendYield").optDouble("raw");
                     String exDividendDate = summaryDetailObject.getJSONObject("exDividendDate").optString("fmt");
-
-                    double marketCap = summaryDetailObject.getJSONObject("marketCap").getDouble("raw");
+                    //시총도없을 수 있음 지수로 하면
+                    Double marketCap = summaryDetailObject.getJSONObject("marketCap").optDouble("raw");
 
                     Double forwardPE = summaryDetailObject.getJSONObject("forwardPE").optDouble("raw");
 
                     double fiftyTwoWeekLow = summaryDetailObject.getJSONObject("fiftyTwoWeekLow").getDouble("raw");
                     double fiftyTwoWeekHigh = summaryDetailObject.getJSONObject("fiftyTwoWeekHigh").getDouble("raw");
                     double fiftyDayAverage = summaryDetailObject.getJSONObject("fiftyDayAverage").getDouble("raw");
-                    double priceToSalesTrailing12Months = summaryDetailObject.getJSONObject("priceToSalesTrailing12Months").getDouble("raw");
+
+                    Double priceToSalesTrailing12Months = summaryDetailObject.getJSONObject("priceToSalesTrailing12Months").optDouble("raw");
                     double twoHundredDayAverage = summaryDetailObject.getJSONObject("twoHundredDayAverage").getDouble("raw");
 
                     // Stock 객체 설정
@@ -132,11 +139,19 @@ public class StockService {
                         stock.setForwardPE(forwardPE);
                     }
 
-                    stock.setMarketCap(marketCap);
+                    if (marketCap.isNaN()) {
+                        stock.setMarketCap(null);
+                    } else {
+                        stock.setMarketCap(marketCap);
+                    }
                     stock.setFiftyTwoWeekLow(fiftyTwoWeekLow);
                     stock.setFiftyTwoWeekHigh(fiftyTwoWeekHigh);
                     stock.setFiftyDayAverage(fiftyDayAverage);
-                    stock.setPriceToSalesTrailing12Months(priceToSalesTrailing12Months);
+                    if (priceToSalesTrailing12Months.isNaN()) {
+                        stock.setPriceToSalesTrailing12Months(null);
+                    } else {
+                        stock.setPriceToSalesTrailing12Months(priceToSalesTrailing12Months);
+                    }
                     stock.setTwoHundredDayAverage(twoHundredDayAverage);
                 }
             }
@@ -146,7 +161,8 @@ public class StockService {
                 JSONObject quoteSummaryTargetObject = targetDataObject.getJSONObject("quoteSummary");
                 JSONArray targetResultArray = quoteSummaryTargetObject.getJSONArray("result");
 
-                if (targetResultArray.length() > 0) {
+
+                if (targetResultArray != null && !targetResultArray.isNull(0)) {
                     JSONObject targetFirstResult = targetResultArray.getJSONObject(0);
                     JSONObject financialData = targetFirstResult.getJSONObject("financialData");
 
@@ -165,7 +181,7 @@ public class StockService {
                 JSONObject quoteSummaryObject = stockDataObject.getJSONObject("quoteSummary");
                 JSONArray resultArray = quoteSummaryObject.getJSONArray("result");
 
-                if (resultArray.length() > 0) {
+                if (resultArray != null && !resultArray.isNull(0)) {
                     JSONObject recommendationTrendObject = resultArray.getJSONObject(0).getJSONObject("recommendationTrend");
                     JSONArray trendArray = recommendationTrendObject.getJSONArray("trend");
 
@@ -185,7 +201,6 @@ public class StockService {
                         stock.setSell(sell);
                         stock.setStrongSell(strongSell);
 
-                        System.out.println("Period: " + period);
                     }
                 }
             }
@@ -206,7 +221,7 @@ public class StockService {
 
             if (updatedStock != null) {
                 updatedStock.setId(existingStock.getId());  // 기존 주식 정보의 ID 설정
-                updatedStock.setTicker(symbol);  // 종목 심볼 설정
+                updatedStock.setSymbol(symbol);  // 종목 심볼 설정
                 stockRepository.save(updatedStock);
                 return RsData.successOf("종목이 업데이트되었습니다.");
             } else {

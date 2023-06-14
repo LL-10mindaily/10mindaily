@@ -1,3 +1,18 @@
+//package com.ll.tenmindaily.boundedContext.investment.Stocks.KoreaData;
+//
+//import lombok.Getter;
+//
+//@Getter
+//public class KoreaStockCrawlingData {
+//    private String companyName;
+//    private String symbol;
+//
+//    public KoreaStockCrawlingData(String companyName, String symbol) {
+//        this.companyName = companyName;
+//        this.symbol = symbol;
+//    }
+//}
+
 package com.ll.tenmindaily.boundedContext.investment.Stocks.KoreaData;
 
 import lombok.Getter;
@@ -5,10 +20,12 @@ import lombok.Getter;
 @Getter
 public class KoreaStockCrawlingData {
     private String companyName;
-    private String ticker;
+    private String symbol;
+    private int sosok;
 
-    public KoreaStockCrawlingData(String companyName, String ticker) {
+    public KoreaStockCrawlingData(String companyName, String symbol, int sosok) {
         this.companyName = companyName;
-        this.ticker = ticker;
+        this.symbol = symbol;
+        this.sosok = sosok;
     }
 }

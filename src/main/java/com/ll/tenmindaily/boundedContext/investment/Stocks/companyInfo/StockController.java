@@ -104,3 +104,4 @@ public class StockController {
         return ResponseEntity.ok(stockList);
     }
 }
+
