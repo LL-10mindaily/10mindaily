@@ -2,6 +2,7 @@ package com.ll.tenmindaily.boundedContext.board.question;
 
 
 
+import com.ll.tenmindaily.base.rq.Rq;
 import com.ll.tenmindaily.boundedContext.board.answer.AnswerForm;
 import com.ll.tenmindaily.boundedContext.board.category.Category;
 import com.ll.tenmindaily.boundedContext.board.category.CategoryService;
@@ -28,6 +29,7 @@ public class QuestionController {
     private final QuestionService questionService;
     private final MemberService memberService;
     private final CategoryService categoryService;
+    private final Rq rq;
 
     @GetMapping({"/list", "/{type}/list"})
     public String list(Model model, @PathVariable(value = "type", required = false) String type,
@@ -71,7 +73,7 @@ public class QuestionController {
     @PostMapping("/create")
     public String questionCreate(@Valid QuestionForm questionForm, BindingResult bindingResult, Principal principal){
         if(bindingResult.hasErrors()){
-            return "usr/board/question_form";
+            return rq.historyBack("권한이 없습니다");
         }
         Member member = this.memberService.getUser(principal.getName()); //---- 유저 객체 구현후 추후 수정 --------------------
         Category category = this.categoryService.getCategory(questionForm.getCategory());
