@@ -2,179 +2,43 @@
 <html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{usr/layout/layout.html}">
 <head>
-    <meta charset="UTF-8"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta charset="UTF-8" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <title>Login</title>
 </head>
 <body layout:fragment="content" class="flex-col flex items-center justify-center">
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
+
 <script>
     function LoginForm__submit(form) {
         form.username.value = form.username.value.trim();
-    ======
-        =
-    ======
-        =
-    >>>>>>>
-        d171d9e(fix
-    :
-        주식을
-        추가할때
-        발생하는
-        경우의
-        수
-        로직
-        수정
-    )
 
-    <
-        script >
-=======
+        if (form.username.value.length === 0) {
+            alert('아이디를 입력해주세요.');
+            form.username.focus();
+            return;
+        }
 
-=======
->>>>>>> a58f3c3 (feat: 주식 기능 추가(사용자권한 파트 아직 구현 못함))
-=======
->>>>>>> 546bfbb (Nagiltae (#9))
-=======
->>>>>>> fe1c3bf (fix: 주식을 추가할때 발생하는 경우의 수 로직 수정)
-    <script>
->>>>>>> 3630690 (Nagiltae (#9))
-        function LoginForm__submit(form) {
-            form.username.value = form.username.value.trim();
-<<<<<<< HEAD
-<<<<<<< HEAD
-            <
-            <
-            <
-            <
-            <
-            << HEAD
-            >>>>>>> 3630690 (Nagiltae (#9))
-                =======
-                =======
-                <script>
-                    function LoginForm__submit(form) {
-                    form.username.value = form.username.value.trim();
-                    >>>>>>> ffb6eb2 (feat: 주식 기능 추가(사용자권한 파트 아직 구현 못함))
-                    >>>>>>> d171d9e (fix: 주식을 추가할때 발생하는 경우의 수 로직 수정)
+        if (form.username.value.length < 4) {
+            alert('아이디를 4자 이상 입력해주세요.');
+            form.username.focus();
+            return;
+        }
 
-                    if (form.username.value.length === 0) {
-                    alert('아이디를 입력해주세요.');
-                    form.username.focus();
-                    return;
-                }
+        form.password.value = form.password.value.trim();
 
-                    if (form.username.value.length < 4) {
-                    alert('아이디를 4자 이상 입력해주세요.');
-                    form.username.focus();
-                    return;
-                }
+        if (form.password.value.length === 0) {
+            form.password.focus();
+            alert('비밀번호를 입력해주세요.');
+            return;
+        }
 
-                    form.password.value = form.password.value.trim();
+        if (form.password.value.length < 4) {
+            alert('비밀번호를 4자 이상 입력해주세요.');
+            form.password.focus();
+            return;
+        }
 
-                    if (form.password.value.length === 0) {
-                    form.password.focus();
-                    alert('비밀번호를 입력해주세요.');
-                    return;
-                }
-
-                    if (form.password.value.length < 4) {
-                    alert('비밀번호를 4자 이상 입력해주세요.');
-                    form.password.focus();
-                    return;
-                }
-
-                    form.submit(); // 폼 발송
-                }
-=======
-=======
-=======
-<<<<<<< HEAD
->>>>>>> 50c3a61 (Nagiltae (#9))
-<<<<<<< HEAD
->>>>>>> 546bfbb (Nagiltae (#9))
-=======
-=======
-<<<<<<< HEAD
->>>>>>> e3f2ff1 (fix: 주식을 추가할때 발생하는 경우의 수 로직 수정)
->>>>>>> fe1c3bf (fix: 주식을 추가할때 발생하는 경우의 수 로직 수정)
-<script>
-    function LoginForm__submit(form) {
-        form.username.value = form.username.value.trim();
-    ======
-        =
-    ======
-        =
-    >>>>>>>
-        d171d9e(fix
-    :
-        주식을
-        추가할때
-        발생하는
-        경우의
-        수
-        로직
-        수정
-    )
-
-    <
-        script >
-        function LoginForm__submit(form) {
-            form.username.value = form.username.value.trim();
-            <
-            <
-            <
-            <
-            <
-            << HEAD
-            >>>>>>> 3630690 (Nagiltae (#9))
-                =======
-                =======
-                <script>
-                    function LoginForm__submit(form) {
-                    form.username.value = form.username.value.trim();
-                    >>>>>>> ffb6eb2 (feat: 주식 기능 추가(사용자권한 파트 아직 구현 못함))
-                    >>>>>>> d171d9e (fix: 주식을 추가할때 발생하는 경우의 수 로직 수정)
-
-                    if (form.username.value.length === 0) {
-                    alert('아이디를 입력해주세요.');
-                    form.username.focus();
-                    return;
-                }
-
-                    if (form.username.value.length < 4) {
-                    alert('아이디를 4자 이상 입력해주세요.');
-                    form.username.focus();
-                    return;
-                }
-
-                    form.password.value = form.password.value.trim();
-
-                    if (form.password.value.length === 0) {
-                    form.password.focus();
-                    alert('비밀번호를 입력해주세요.');
-                    return;
-                }
-
-                    if (form.password.value.length < 4) {
-                    alert('비밀번호를 4자 이상 입력해주세요.');
-                    form.password.focus();
-                    return;
-                }
-
-<<<<<<< HEAD
         form.submit(); // 폼 발송
     }
->>>>>>> a58f3c3 (feat: 주식 기능 추가(사용자권한 파트 아직 구현 못함))
-=======
-                    form.submit(); // 폼 발송
-                }
->>>>>>> 739f0e5 (style: coinNews.html 마무리 ui작업 완료)
 </script>
 <main>
     <section class="flex items-center justify-center">
@@ -182,8 +46,7 @@
             <div class="g-6 flex h-full flex-wrap items-center justify-center">
                 <!-- container with form -->
                 <div class="">
-                    <form th:action="@{/usr/member/login}" method="post"
-                          onsubmit="LoginForm__submit(this); return false;">
+                    <form th:action="@{/usr/member/login}" method="post" onsubmit="LoginForm__submit(this); return false;">
                         <!-- ID input -->
                         <div class="relative mb-6" data-te-input-wrapper-init>
                             <input
@@ -191,7 +54,7 @@
                                     class=" block min-h-[auto] w-full rounded border-2 px-3 py-[0.32rem] leading-[2.15]"
                                     id="exampleFormControlInput3"
                                     name="username"
-                                    placeholder="아이디"/>
+                                    placeholder="아이디" />
                         </div>
 
                         <!-- Password input -->
@@ -201,7 +64,7 @@
                                     class=" block min-h-[auto] w-full rounded border-2 px-3 py-[0.32rem] leading-[2.15]"
                                     id="exampleFormControlInput33"
                                     name="password"
-                                    placeholder="비밀번호"/>
+                                    placeholder="비밀번호" />
                         </div>
 
                         <!-- Remember me checkbox -->
@@ -212,7 +75,7 @@
                                         type="checkbox"
                                         value=""
                                         id="exampleCheck3"
-                                        checked/>
+                                        checked />
                                 <label
                                         class="inline-block pl-[0.15rem] hover:cursor-pointer"
                                         for="exampleCheck3">
@@ -222,7 +85,6 @@
 
                             <!-- Forgot password link -->
                             <a
-<<<<<<< HEAD
                                     href="#!"
                                     class="ml-80 text-primary"
                             >비밀번호 찾기</a>
@@ -251,7 +113,7 @@
                         <a
                                 class="mb-3 flex w-full items-center justify-center rounded bg-primary px-7 pb-2.5 pt-3 text-center text-sm font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]"
                                 style="background-color: #03C75A"
-                                href="#!"
+                                href="/oauth2/authorization/naver"
                                 role="button"
                                 data-te-ripple-init
                                 data-te-ripple-color="light">
@@ -261,15 +123,14 @@
                                     class="mr-2 h-3.5 w-3.5"
                                     fill="#ffffff"
                                     viewBox="0 0 512 512">
-                                <path fill="#ffffff"
-                                      d="M9 32V480H181.366V255.862L331.358 480H504V32H331.358V255.862L181.366 32H9Z"/>
+                                <path fill="#ffffff" d="M9 32V480H181.366V255.862L331.358 480H504V32H331.358V255.862L181.366 32H9Z"/>
                             </svg>
                             네이버 계정으로 시작하기
                         </a>
                         <a
                                 class="mb-3 flex w-full items-center justify-center rounded bg-info px-7 pb-2.5 pt-3 text-center text-sm font-medium uppercase leading-normal shadow-[0_4px_9px_-4px_#54b4d3] transition duration-150 ease-in-out hover:bg-info-600 hover:shadow-[0_8px_9px_-4px_rgba(84,180,211,0.3),0_4px_18px_0_rgba(84,180,211,0.2)] focus:bg-info-600 focus:shadow-[0_8px_9px_-4px_rgba(84,180,211,0.3),0_4px_18px_0_rgba(84,180,211,0.2)] focus:outline-none focus:ring-0 active:bg-info-700 active:shadow-[0_8px_9px_-4px_rgba(84,180,211,0.3),0_4px_18px_0_rgba(84,180,211,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(84,180,211,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(84,180,211,0.2),0_4px_18px_0_rgba(84,180,211,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(84,180,211,0.2),0_4px_18px_0_rgba(84,180,211,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(84,180,211,0.2),0_4px_18px_0_rgba(84,180,211,0.1)]"
                                 style="background-color: #FEE500"
-                                href="#!"
+                                href="/oauth2/authorization/kakao"
                                 role="button"
                                 data-te-ripple-init
                                 data-te-ripple-color="light">
@@ -279,15 +140,14 @@
                                     class="mr-2 h-3.5 w-3.5"
                                     fill="#000000"
                                     viewBox="0 0 512 512">
-                                <path fill="#000000"
-                                      d="M255.5 48C299.345 48 339.897 56.5332 377.156 73.5996C414.415 90.666 443.871 113.873 465.522 143.22C487.174 172.566 498 204.577 498 239.252C498 273.926 487.174 305.982 465.522 335.42C443.871 364.857 414.46 388.109 377.291 405.175C340.122 422.241 299.525 430.775 255.5 430.775C241.607 430.775 227.262 429.781 212.467 427.795C148.233 472.402 114.042 494.977 109.892 495.518C107.907 496.241 106.012 496.15 104.208 495.248C103.486 494.706 102.945 493.983 102.584 493.08C102.223 492.177 102.043 491.365 102.043 490.642V489.559C103.126 482.515 111.335 453.169 126.672 401.518C91.8486 384.181 64.1974 361.2 43.7185 332.575C23.2395 303.951 13 272.843 13 239.252C13 204.577 23.8259 172.566 45.4777 143.22C67.1295 113.873 96.5849 90.666 133.844 73.5996C171.103 56.5332 211.655 48 255.5 48Z"/>
+                                <path fill="#000000" d="M255.5 48C299.345 48 339.897 56.5332 377.156 73.5996C414.415 90.666 443.871 113.873 465.522 143.22C487.174 172.566 498 204.577 498 239.252C498 273.926 487.174 305.982 465.522 335.42C443.871 364.857 414.46 388.109 377.291 405.175C340.122 422.241 299.525 430.775 255.5 430.775C241.607 430.775 227.262 429.781 212.467 427.795C148.233 472.402 114.042 494.977 109.892 495.518C107.907 496.241 106.012 496.15 104.208 495.248C103.486 494.706 102.945 493.983 102.584 493.08C102.223 492.177 102.043 491.365 102.043 490.642V489.559C103.126 482.515 111.335 453.169 126.672 401.518C91.8486 384.181 64.1974 361.2 43.7185 332.575C23.2395 303.951 13 272.843 13 239.252C13 204.577 23.8259 172.566 45.4777 143.22C67.1295 113.873 96.5849 90.666 133.844 73.5996C171.103 56.5332 211.655 48 255.5 48Z"/>
                             </svg>
                             카카오 계정으로 시작하기
                         </a>
                         <a
                                 class="mb-3 flex w-full items-center justify-center rounded bg-info px-7 pb-2.5 pt-3 text-center text-sm font-medium uppercase leading-normal shadow-[0_4px_9px_-4px_#54b4d3] transition duration-150 ease-in-out hover:bg-info-600 hover:shadow-[0_8px_9px_-4px_rgba(84,180,211,0.3),0_4px_18px_0_rgba(84,180,211,0.2)] focus:bg-info-600 focus:shadow-[0_8px_9px_-4px_rgba(84,180,211,0.3),0_4px_18px_0_rgba(84,180,211,0.2)] focus:outline-none focus:ring-0 active:bg-info-700 active:shadow-[0_8px_9px_-4px_rgba(84,180,211,0.3),0_4px_18px_0_rgba(84,180,211,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(84,180,211,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(84,180,211,0.2),0_4px_18px_0_rgba(84,180,211,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(84,180,211,0.2),0_4px_18px_0_rgba(84,180,211,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(84,180,211,0.2),0_4px_18px_0_rgba(84,180,211,0.1)]"
                                 style="background-color: #ffffff"
-                                href="#!"
+                                href="/oauth2/authorization/google"
                                 role="button"
                                 data-te-ripple-init
                                 data-te-ripple-color="light">
@@ -305,168 +165,10 @@
                                     <g id="Icons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                                         <g id="Color-" transform="translate(-401.000000, -860.000000)">
                                             <g id="Google" transform="translate(401.000000, 860.000000)">
-                                                <path d="M9.82727273,24 C9.82727273,22.4757333 10.0804318,21.0144 10.5322727,19.6437333 L2.62345455,13.6042667 C1.08206818,16.7338667 0.213636364,20.2602667 0.213636364,24 C0.213636364,27.7365333 1.081,31.2608 2.62025,34.3882667 L10.5247955,28.3370667 C10.0772273,26.9728 9.82727273,25.5168 9.82727273,24"
-                                                      id="Fill-1" fill="#FBBC05"/>
-                                                <path d="M23.7136364,10.1333333 C27.025,10.1333333 30.0159091,11.3066667 32.3659091,13.2266667 L39.2022727,6.4 C35.0363636,2.77333333 29.6954545,0.533333333 23.7136364,0.533333333 C14.4268636,0.533333333 6.44540909,5.84426667 2.62345455,13.6042667 L10.5322727,19.6437333 C12.3545909,14.112 17.5491591,10.1333333 23.7136364,10.1333333"
-                                                      id="Fill-2" fill="#EB4335"/>
-                                                <path d="M23.7136364,37.8666667 C17.5491591,37.8666667 12.3545909,33.888 10.5322727,28.3562667 L2.62345455,34.3946667 C6.44540909,42.1557333 14.4268636,47.4666667 23.7136364,47.4666667 C29.4455,47.4666667 34.9177955,45.4314667 39.0249545,41.6181333 L31.5177727,35.8144 C29.3995682,37.1488 26.7323182,37.8666667 23.7136364,37.8666667"
-                                                      id="Fill-3" fill="#34A853"/>
-                                                <path d="M46.1454545,24 C46.1454545,22.6133333 45.9318182,21.12 45.6113636,19.7333333 L23.7136364,19.7333333 L23.7136364,28.8 L36.3181818,28.8 C35.6879545,31.8912 33.9724545,34.2677333 31.5177727,35.8144 L39.0249545,41.6181333 C43.3393409,37.6138667 46.1454545,31.6490667 46.1454545,24"
-                                                      id="Fill-4" fill="#4285F4"/>
-=======
-                                    class="mb-3 flex w-full items-center justify-center rounded bg-primary px-7 pb-2.5 pt-3 text-center text-sm font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]"
-                                    style="background-color: #03C75A"
-                                    href="/oauth2/authorization/naver"
-                                    role="button"
-                                    data-te-ripple-init
-                                    data-te-ripple-color="light">
-                                <!-- NAVER -->
-                                <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        class="mr-2 h-3.5 w-3.5"
-                                        fill="#ffffff"
-                                        viewBox="0 0 512 512">
-                                    <path fill="#ffffff" d="M9 32V480H181.366V255.862L331.358 480H504V32H331.358V255.862L181.366 32H9Z"/>
-                                </svg>
-                                네이버 계정으로 시작하기
-                            </a>
-                            <a
-                                    class="mb-3 flex w-full items-center justify-center rounded bg-info px-7 pb-2.5 pt-3 text-center text-sm font-medium uppercase leading-normal shadow-[0_4px_9px_-4px_#54b4d3] transition duration-150 ease-in-out hover:bg-info-600 hover:shadow-[0_8px_9px_-4px_rgba(84,180,211,0.3),0_4px_18px_0_rgba(84,180,211,0.2)] focus:bg-info-600 focus:shadow-[0_8px_9px_-4px_rgba(84,180,211,0.3),0_4px_18px_0_rgba(84,180,211,0.2)] focus:outline-none focus:ring-0 active:bg-info-700 active:shadow-[0_8px_9px_-4px_rgba(84,180,211,0.3),0_4px_18px_0_rgba(84,180,211,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(84,180,211,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(84,180,211,0.2),0_4px_18px_0_rgba(84,180,211,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(84,180,211,0.2),0_4px_18px_0_rgba(84,180,211,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(84,180,211,0.2),0_4px_18px_0_rgba(84,180,211,0.1)]"
-                                    style="background-color: #FEE500"
-                                    href="/oauth2/authorization/kakao"
-                                    role="button"
-                                    data-te-ripple-init
-                                    data-te-ripple-color="light">
-                                <!-- KAKAO -->
-                                <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        class="mr-2 h-3.5 w-3.5"
-                                        fill="#000000"
-                                        viewBox="0 0 512 512">
-                                    <path fill="#000000" d="M255.5 48C299.345 48 339.897 56.5332 377.156 73.5996C414.415 90.666 443.871 113.873 465.522 143.22C487.174 172.566 498 204.577 498 239.252C498 273.926 487.174 305.982 465.522 335.42C443.871 364.857 414.46 388.109 377.291 405.175C340.122 422.241 299.525 430.775 255.5 430.775C241.607 430.775 227.262 429.781 212.467 427.795C148.233 472.402 114.042 494.977 109.892 495.518C107.907 496.241 106.012 496.15 104.208 495.248C103.486 494.706 102.945 493.983 102.584 493.08C102.223 492.177 102.043 491.365 102.043 490.642V489.559C103.126 482.515 111.335 453.169 126.672 401.518C91.8486 384.181 64.1974 361.2 43.7185 332.575C23.2395 303.951 13 272.843 13 239.252C13 204.577 23.8259 172.566 45.4777 143.22C67.1295 113.873 96.5849 90.666 133.844 73.5996C171.103 56.5332 211.655 48 255.5 48Z"/>
-                                </svg>
-                                카카오 계정으로 시작하기
-                            </a>
-                            <a
-                                    class="mb-3 flex w-full items-center justify-center rounded bg-info px-7 pb-2.5 pt-3 text-center text-sm font-medium uppercase leading-normal shadow-[0_4px_9px_-4px_#54b4d3] transition duration-150 ease-in-out hover:bg-info-600 hover:shadow-[0_8px_9px_-4px_rgba(84,180,211,0.3),0_4px_18px_0_rgba(84,180,211,0.2)] focus:bg-info-600 focus:shadow-[0_8px_9px_-4px_rgba(84,180,211,0.3),0_4px_18px_0_rgba(84,180,211,0.2)] focus:outline-none focus:ring-0 active:bg-info-700 active:shadow-[0_8px_9px_-4px_rgba(84,180,211,0.3),0_4px_18px_0_rgba(84,180,211,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(84,180,211,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(84,180,211,0.2),0_4px_18px_0_rgba(84,180,211,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(84,180,211,0.2),0_4px_18px_0_rgba(84,180,211,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(84,180,211,0.2),0_4px_18px_0_rgba(84,180,211,0.1)]"
-                                    style="background-color: #ffffff"
-                                    href="/oauth2/authorization/google"
-                                    role="button"
-                                    data-te-ripple-init
-                                    data-te-ripple-color="light">
-                                <!-- GOOGLE -->
-                                <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        class="mr-2 h-3.5 w-3.5"
-                                        width="13px"
-                                        height="12px"
-                                        fill="#000000"
-                                        viewBox="0 0 48 48">
-                                    <g id="SVGRepo_bgCarrier" stroke-width="0"/>
-                                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"/>
-                                    <g id="SVGRepo_iconCarrier">
-                                        <g id="Icons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                            <g id="Color-" transform="translate(-401.000000, -860.000000)">
-                                                <g id="Google" transform="translate(401.000000, 860.000000)">
-                                                    <path d="M9.82727273,24 C9.82727273,22.4757333 10.0804318,21.0144 10.5322727,19.6437333 L2.62345455,13.6042667 C1.08206818,16.7338667 0.213636364,20.2602667 0.213636364,24 C0.213636364,27.7365333 1.081,31.2608 2.62025,34.3882667 L10.5247955,28.3370667 C10.0772273,26.9728 9.82727273,25.5168 9.82727273,24" id="Fill-1" fill="#FBBC05"/>
-                                                    <path d="M23.7136364,10.1333333 C27.025,10.1333333 30.0159091,11.3066667 32.3659091,13.2266667 L39.2022727,6.4 C35.0363636,2.77333333 29.6954545,0.533333333 23.7136364,0.533333333 C14.4268636,0.533333333 6.44540909,5.84426667 2.62345455,13.6042667 L10.5322727,19.6437333 C12.3545909,14.112 17.5491591,10.1333333 23.7136364,10.1333333" id="Fill-2" fill="#EB4335"/>
-                                                    <path d="M23.7136364,37.8666667 C17.5491591,37.8666667 12.3545909,33.888 10.5322727,28.3562667 L2.62345455,34.3946667 C6.44540909,42.1557333 14.4268636,47.4666667 23.7136364,47.4666667 C29.4455,47.4666667 34.9177955,45.4314667 39.0249545,41.6181333 L31.5177727,35.8144 C29.3995682,37.1488 26.7323182,37.8666667 23.7136364,37.8666667" id="Fill-3" fill="#34A853"/>
-                                                    <path d="M46.1454545,24 C46.1454545,22.6133333 45.9318182,21.12 45.6113636,19.7333333 L23.7136364,19.7333333 L23.7136364,28.8 L36.3181818,28.8 C35.6879545,31.8912 33.9724545,34.2677333 31.5177727,35.8144 L39.0249545,41.6181333 C43.3393409,37.6138667 46.1454545,31.6490667 46.1454545,24" id="Fill-4" fill="#4285F4"/>
-                                                </g>
-<<<<<<< HEAD
->>>>>>> 5afa155 (feat: 소셜 로그인(네이버, 카카오, 구글) 기능 구현)
-=======
-                                    href="#!"
-                                    class="ml-80 text-primary"
-                            >비밀번호 찾기</a>
-                        </div>
-
-                        <!-- Submit button -->
-                        <button
-                                style="background-color: #1e40af;"
-                                type="submit"
-                                class="inline-block w-full rounded bg-blue-800 px-7 pb-2.5 pt-3 text-sm font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-blue-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-blue-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-blue-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]"
-                                data-te-ripple-init
-                                data-te-ripple-color="light">
-                            로그인
-                        </button>
-
-                        <!-- Divider -->
-                        <div
-                                class="my-4 flex items-center before:mt-0.5 before:flex-1 before:border-t before:border-neutral-300 after:mt-0.5 after:flex-1 after:border-t after:border-neutral-300">
-                            <p
-                                    class="mx-4 mb-0 text-center font-semibold dark:text-neutral-200">
-                                OR
-                            </p>
-                        </div>
-
-                        <!-- Social login buttons -->
-                        <a
-                                class="mb-3 flex w-full items-center justify-center rounded bg-primary px-7 pb-2.5 pt-3 text-center text-sm font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]"
-                                style="background-color: #03C75A"
-                                href="#!"
-                                role="button"
-                                data-te-ripple-init
-                                data-te-ripple-color="light">
-                            <!-- NAVER -->
-                            <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    class="mr-2 h-3.5 w-3.5"
-                                    fill="#ffffff"
-                                    viewBox="0 0 512 512">
-                                <path fill="#ffffff"
-                                      d="M9 32V480H181.366V255.862L331.358 480H504V32H331.358V255.862L181.366 32H9Z"/>
-                            </svg>
-                            네이버 계정으로 시작하기
-                        </a>
-                        <a
-                                class="mb-3 flex w-full items-center justify-center rounded bg-info px-7 pb-2.5 pt-3 text-center text-sm font-medium uppercase leading-normal shadow-[0_4px_9px_-4px_#54b4d3] transition duration-150 ease-in-out hover:bg-info-600 hover:shadow-[0_8px_9px_-4px_rgba(84,180,211,0.3),0_4px_18px_0_rgba(84,180,211,0.2)] focus:bg-info-600 focus:shadow-[0_8px_9px_-4px_rgba(84,180,211,0.3),0_4px_18px_0_rgba(84,180,211,0.2)] focus:outline-none focus:ring-0 active:bg-info-700 active:shadow-[0_8px_9px_-4px_rgba(84,180,211,0.3),0_4px_18px_0_rgba(84,180,211,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(84,180,211,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(84,180,211,0.2),0_4px_18px_0_rgba(84,180,211,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(84,180,211,0.2),0_4px_18px_0_rgba(84,180,211,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(84,180,211,0.2),0_4px_18px_0_rgba(84,180,211,0.1)]"
-                                style="background-color: #FEE500"
-                                href="#!"
-                                role="button"
-                                data-te-ripple-init
-                                data-te-ripple-color="light">
-                            <!-- KAKAO -->
-                            <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    class="mr-2 h-3.5 w-3.5"
-                                    fill="#000000"
-                                    viewBox="0 0 512 512">
-                                <path fill="#000000"
-                                      d="M255.5 48C299.345 48 339.897 56.5332 377.156 73.5996C414.415 90.666 443.871 113.873 465.522 143.22C487.174 172.566 498 204.577 498 239.252C498 273.926 487.174 305.982 465.522 335.42C443.871 364.857 414.46 388.109 377.291 405.175C340.122 422.241 299.525 430.775 255.5 430.775C241.607 430.775 227.262 429.781 212.467 427.795C148.233 472.402 114.042 494.977 109.892 495.518C107.907 496.241 106.012 496.15 104.208 495.248C103.486 494.706 102.945 493.983 102.584 493.08C102.223 492.177 102.043 491.365 102.043 490.642V489.559C103.126 482.515 111.335 453.169 126.672 401.518C91.8486 384.181 64.1974 361.2 43.7185 332.575C23.2395 303.951 13 272.843 13 239.252C13 204.577 23.8259 172.566 45.4777 143.22C67.1295 113.873 96.5849 90.666 133.844 73.5996C171.103 56.5332 211.655 48 255.5 48Z"/>
-                            </svg>
-                            카카오 계정으로 시작하기
-                        </a>
-                        <a
-                                class="mb-3 flex w-full items-center justify-center rounded bg-info px-7 pb-2.5 pt-3 text-center text-sm font-medium uppercase leading-normal shadow-[0_4px_9px_-4px_#54b4d3] transition duration-150 ease-in-out hover:bg-info-600 hover:shadow-[0_8px_9px_-4px_rgba(84,180,211,0.3),0_4px_18px_0_rgba(84,180,211,0.2)] focus:bg-info-600 focus:shadow-[0_8px_9px_-4px_rgba(84,180,211,0.3),0_4px_18px_0_rgba(84,180,211,0.2)] focus:outline-none focus:ring-0 active:bg-info-700 active:shadow-[0_8px_9px_-4px_rgba(84,180,211,0.3),0_4px_18px_0_rgba(84,180,211,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(84,180,211,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(84,180,211,0.2),0_4px_18px_0_rgba(84,180,211,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(84,180,211,0.2),0_4px_18px_0_rgba(84,180,211,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(84,180,211,0.2),0_4px_18px_0_rgba(84,180,211,0.1)]"
-                                style="background-color: #ffffff"
-                                href="#!"
-                                role="button"
-                                data-te-ripple-init
-                                data-te-ripple-color="light">
-                            <!-- GOOGLE -->
-                            <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    class="mr-2 h-3.5 w-3.5"
-                                    width="13px"
-                                    height="12px"
-                                    fill="#000000"
-                                    viewBox="0 0 48 48">
-                                <g id="SVGRepo_bgCarrier" stroke-width="0"/>
-                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"/>
-                                <g id="SVGRepo_iconCarrier">
-                                    <g id="Icons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                        <g id="Color-" transform="translate(-401.000000, -860.000000)">
-                                            <g id="Google" transform="translate(401.000000, 860.000000)">
-                                                <path d="M9.82727273,24 C9.82727273,22.4757333 10.0804318,21.0144 10.5322727,19.6437333 L2.62345455,13.6042667 C1.08206818,16.7338667 0.213636364,20.2602667 0.213636364,24 C0.213636364,27.7365333 1.081,31.2608 2.62025,34.3882667 L10.5247955,28.3370667 C10.0772273,26.9728 9.82727273,25.5168 9.82727273,24"
-                                                      id="Fill-1" fill="#FBBC05"/>
-                                                <path d="M23.7136364,10.1333333 C27.025,10.1333333 30.0159091,11.3066667 32.3659091,13.2266667 L39.2022727,6.4 C35.0363636,2.77333333 29.6954545,0.533333333 23.7136364,0.533333333 C14.4268636,0.533333333 6.44540909,5.84426667 2.62345455,13.6042667 L10.5322727,19.6437333 C12.3545909,14.112 17.5491591,10.1333333 23.7136364,10.1333333"
-                                                      id="Fill-2" fill="#EB4335"/>
-                                                <path d="M23.7136364,37.8666667 C17.5491591,37.8666667 12.3545909,33.888 10.5322727,28.3562667 L2.62345455,34.3946667 C6.44540909,42.1557333 14.4268636,47.4666667 23.7136364,47.4666667 C29.4455,47.4666667 34.9177955,45.4314667 39.0249545,41.6181333 L31.5177727,35.8144 C29.3995682,37.1488 26.7323182,37.8666667 23.7136364,37.8666667"
-                                                      id="Fill-3" fill="#34A853"/>
-                                                <path d="M46.1454545,24 C46.1454545,22.6133333 45.9318182,21.12 45.6113636,19.7333333 L23.7136364,19.7333333 L23.7136364,28.8 L36.3181818,28.8 C35.6879545,31.8912 33.9724545,34.2677333 31.5177727,35.8144 L39.0249545,41.6181333 C43.3393409,37.6138667 46.1454545,31.6490667 46.1454545,24"
-                                                      id="Fill-4" fill="#4285F4"/>
->>>>>>> a58f3c3 (feat: 주식 기능 추가(사용자권한 파트 아직 구현 못함))
+                                                <path d="M9.82727273,24 C9.82727273,22.4757333 10.0804318,21.0144 10.5322727,19.6437333 L2.62345455,13.6042667 C1.08206818,16.7338667 0.213636364,20.2602667 0.213636364,24 C0.213636364,27.7365333 1.081,31.2608 2.62025,34.3882667 L10.5247955,28.3370667 C10.0772273,26.9728 9.82727273,25.5168 9.82727273,24" id="Fill-1" fill="#FBBC05"/>
+                                                <path d="M23.7136364,10.1333333 C27.025,10.1333333 30.0159091,11.3066667 32.3659091,13.2266667 L39.2022727,6.4 C35.0363636,2.77333333 29.6954545,0.533333333 23.7136364,0.533333333 C14.4268636,0.533333333 6.44540909,5.84426667 2.62345455,13.6042667 L10.5322727,19.6437333 C12.3545909,14.112 17.5491591,10.1333333 23.7136364,10.1333333" id="Fill-2" fill="#EB4335"/>
+                                                <path d="M23.7136364,37.8666667 C17.5491591,37.8666667 12.3545909,33.888 10.5322727,28.3562667 L2.62345455,34.3946667 C6.44540909,42.1557333 14.4268636,47.4666667 23.7136364,47.4666667 C29.4455,47.4666667 34.9177955,45.4314667 39.0249545,41.6181333 L31.5177727,35.8144 C29.3995682,37.1488 26.7323182,37.8666667 23.7136364,37.8666667" id="Fill-3" fill="#34A853"/>
+                                                <path d="M46.1454545,24 C46.1454545,22.6133333 45.9318182,21.12 45.6113636,19.7333333 L23.7136364,19.7333333 L23.7136364,28.8 L36.3181818,28.8 C35.6879545,31.8912 33.9724545,34.2677333 31.5177727,35.8144 L39.0249545,41.6181333 C43.3393409,37.6138667 46.1454545,31.6490667 46.1454545,24" id="Fill-4" fill="#4285F4"/>
                                             </g>
                                         </g>
                                     </g>

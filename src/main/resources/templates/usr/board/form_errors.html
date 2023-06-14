@@ -1,12 +1,4 @@
 <div th:fragment="formErrorsFragment" class="alert alert-danger"
      role="alert" th:if="${#fields.hasAnyErrors()}">
-<<<<<<< HEAD
-<<<<<<< HEAD
     <div th:each="err : ${#fields.allErrors()}" th:text="${err}" class="text-red-500"></div>
-=======
-  <div th:each="err : ${#fields.allErrors()}" th:text="${err}" class="text-red-500"></div>
->>>>>>> 3630690 (Nagiltae (#9))
-=======
-    <div th:each="err : ${#fields.allErrors()}" th:text="${err}" class="text-red-500"></div>
->>>>>>> 739f0e5 (style: coinNews.html 마무리 ui작업 완료)
 </div>
