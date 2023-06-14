@@ -1,18 +1,3 @@
-//package com.ll.tenmindaily.boundedContext.investment.Stocks.KoreaData;
-//
-//import lombok.Getter;
-//
-//@Getter
-//public class KoreaStockCrawlingData {
-//    private String companyName;
-//    private String symbol;
-//
-//    public KoreaStockCrawlingData(String companyName, String symbol) {
-//        this.companyName = companyName;
-//        this.symbol = symbol;
-//    }
-//}
-
 package com.ll.tenmindaily.boundedContext.investment.Stocks.KoreaData;
 
 import lombok.Getter;

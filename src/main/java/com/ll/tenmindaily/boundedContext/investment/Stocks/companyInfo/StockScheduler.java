@@ -21,20 +21,20 @@ public class StockScheduler {
         this.stockService = stockService;
     }
 
-    @Scheduled(fixedDelay = 100000) // 10초마다 실행
+    @Scheduled(fixedDelay = 10000000) // 10초마다 실행
     public void updateStockData() {
         // 클롤링을 통해 새로운 주식 데이터 가져오기
-        List<KoreaStockCrawlingData> crawlingData = crawlingService.getKoreaStockCrawling();
+        List<KoreaStockCrawlingData> crawlingData0 = crawlingService.getKoreaStockCrawling(0); // sosok 값이 0일 때 데이터 가져오기
+        List<KoreaStockCrawlingData> crawlingData1 = crawlingService.getKoreaStockCrawling(1); // sosok 값이 1일 때 데이터 가져오기
 
+        updateStockDataWithSosok(crawlingData0, ".ks"); // sosok 값이 0일 때 .ks 접미사 추가
+        updateStockDataWithSosok(crawlingData1, ".kq"); // sosok 값이 1일 때 .kq 접미사 추가
+    }
+
+    private void updateStockDataWithSosok(List<KoreaStockCrawlingData> crawlingData, String suffix) {
         for (KoreaStockCrawlingData data : crawlingData) {
             String symbol = data.getSymbol();
-            String ticker = symbol;
-
-            if (symbol.endsWith(".ks") || symbol.endsWith(".kq")) {
-                ticker = symbol;
-            } else {
-                ticker = symbol + (data.getSosok() == 0 ? ".ks" : ".kq");
-            }
+            String ticker = symbol + suffix;
 
             // 기존에 저장된 주식 정보 가져오기
             Stock existingStock = stockService.getStockBySymbol(symbol);
