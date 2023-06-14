@@ -20,8 +20,8 @@ public class Stock {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    //한국 미국 기업명
-    private String name;
+    //    //한국 미국 기업명
+//    private String name;
     //스케줄러의 기준 시간이 된다.
     @CreatedDate
     private LocalDateTime createDate;

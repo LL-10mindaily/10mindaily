@@ -45,8 +45,6 @@ public class QStock extends EntityPathBase<Stock> {
 
     public final NumberPath<Double> marketCap = createNumber("marketCap", Double.class);
 
-    public final StringPath name = createString("name");
-
     public final NumberPath<Integer> national = createNumber("national", Integer.class);
 
     public final NumberPath<Double> previousClose = createNumber("previousClose", Double.class);

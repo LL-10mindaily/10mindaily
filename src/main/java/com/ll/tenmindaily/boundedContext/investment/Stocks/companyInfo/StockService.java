@@ -169,10 +169,18 @@ public class StockService {
                     // "financialData" 객체에 "targetHighPrice", "targetLowPrice", "targetMedianPrice" 키가 있는지 확인
                     if (financialData.has("targetHighPrice") && financialData.has("targetLowPrice") && financialData.has("targetMedianPrice")) {
                         stock.setCurrentPrice(financialData.getJSONObject("currentPrice").getDouble("raw"));
-                        stock.setTargetHighPrice(financialData.getJSONObject("targetHighPrice").getDouble("raw"));
-                        stock.setTargetLowPrice(financialData.getJSONObject("targetLowPrice").getDouble("raw"));
-                        stock.setTargetMedianPrice(financialData.getJSONObject("targetMedianPrice").getDouble("raw"));
+
+                        Double targetHighPrice = financialData.getJSONObject("targetHighPrice").optDouble("raw");
+                        stock.setTargetHighPrice(Double.isNaN(targetHighPrice) ? null : targetHighPrice);
+
+                        Double targetLowPrice = financialData.getJSONObject("targetLowPrice").optDouble("raw");
+                        stock.setTargetLowPrice(Double.isNaN(targetLowPrice) ? null : targetLowPrice);
+
+                        Double targetMedianPrice = financialData.getJSONObject("targetMedianPrice").optDouble("raw");
+                        stock.setTargetMedianPrice(Double.isNaN(targetMedianPrice) ? null : targetMedianPrice);
                     }
+
+
                 }
             }
 
